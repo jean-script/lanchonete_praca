@@ -1,0 +1,42 @@
+
+
+.container {
+    width: 100%;
+    max-width: 1120px;
+    margin-bottom: 20px;
+
+    div {
+        display: flex;
+        align-items: center;
+        max-width: 1100px;
+        overflow-y: scroll;
+        gap: 10px;
+
+        &::-webkit-scrollbar{
+            width: 10px;
+            height: auto;
+        }
+
+    }
+
+    button{
+        
+        background: transparent;
+        border: 1px solid #fff;
+        border-radius: 50px;
+        color: var(--white);
+        padding: 5px;
+        min-width: 100px;
+        height: 35px;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}
+
+@media screen and (max-width:500px){
+    .container{
+        margin-top: 25px;
+    }
+}

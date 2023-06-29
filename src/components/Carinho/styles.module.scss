@@ -1,0 +1,138 @@
+
+
+
+.container {
+    position: absolute;
+    right: 0;
+    top: 13%;
+    height: 600px;
+    padding: 20px;
+    width: 300px;
+    background-color:var(--dark-700);
+    transition: all 0.3s;
+    border-radius: 10px;
+    // overflow-x: scroll;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+       width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 50px;
+        background: var(--dark-900);
+    }
+
+    .activeContainer {
+        display: flex;
+    }
+
+    .carinho {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-bottom: 15px;
+        position: relative;
+
+        .activeCarinho{
+            display: flex;
+        }
+
+        
+
+        .thash {
+            background: transparent;
+            border: none;
+            position: absolute;
+            top: 20px;
+            right: 0;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+
+            .containerQuant {
+                display: flex;
+                align-items: center;
+                margin-left: 5px;
+                width: 140px;
+                color: #fff;
+
+                span {
+                    // background-color: #fff;
+                    padding: 0px 3px;
+                    
+                }
+
+                .btnqtd {
+                    font-size: 20px;
+                    color: #fff;
+                    background-color: transparent;
+                    padding: 0px 3px;
+                    border: none;
+                    // border-radius: 4px;
+                    
+                }
+            }
+        }
+
+        img {
+            max-width: 80px;
+            max-height: 70px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    }
+
+    
+}
+
+
+.carinhoContainer {
+    position: absolute;
+    top: 7%;
+    right: 2%;
+
+    div {
+        position: relative;
+
+        .btnCarinho {
+            background-color: transparent;
+            border: none;
+            color: var(--white);
+            
+            span {
+                position: absolute;
+                right: 0;
+                width: 15px;
+                height: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                padding: 5px;
+                background-color: red;
+                
+            }
+        }
+    }
+}
+
+
+.totalPrice {
+    position: absolute;
+    bottom: 10%;
+}
+
+.btnFecharPedido {
+    position: absolute;
+    bottom: 4%;
+    background-color: var(--green-900);
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 200px;
+    height: 35px;
+    color: var(--white);
+}

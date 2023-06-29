@@ -1,0 +1,57 @@
+
+
+.header {
+    width: 100%;
+    display: block;
+    height: 60px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 5px 10px 5px;
+
+
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+
+    nav a{
+        margin-left: 10px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+
+    button {
+        background: transparent;
+        border: none;
+        margin-left: 10px;
+        transition: transform 0.3s;
+
+        &:hover{
+            transform: scale(1.2);
+        }
+    }
+
+}
+
+.content {
+    font-size: 16px;
+}
+
+
+@media screen and (max-width:750px){
+    .container {
+        flex-direction: column;
+    }
+}

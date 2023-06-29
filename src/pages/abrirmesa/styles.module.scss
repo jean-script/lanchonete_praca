@@ -1,0 +1,103 @@
+
+
+.main {
+    width: 100%;
+    height: calc(100vh - 60px);
+    display: block;
+    position: relative;
+}
+
+.container {
+    width: 100%;
+    padding: 30px 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.formsContainer {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+        background: transparent;
+        border: none;
+        transition: transform 0.3s;
+
+        &:hover{
+            transform: scale(1.2);
+        }
+    }
+
+}
+
+.forms {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    input {
+        width: 100%;
+        height: 40px;
+        padding: 10px;
+        border: 2px solid var(--dark-700);
+        border-radius: 5px;
+        background-color: var(--dark-900);
+        color: var(--white);
+        font-size: 16px;
+    }
+
+    label {
+        font-size: 18px;
+        margin-left: 2px;
+    }
+
+    select {
+        width: 100%;
+        height: 40px;
+        padding: 10px;
+        border: 2px solid var(--dark-700);
+        border-radius: 5px;
+        background-color: var(--dark-900);
+        color: var(--white);
+        font-size: 16px;
+    }
+
+    button {
+        background-color: var(--green-900);
+        color: var(--white);
+        font-size: 20px;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+}
+
+.cardProducts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px 0;
+
+}
+
+@media screen  and (max-width: 750px) {
+    .cardProducts {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen  and (max-width: 530px) {
+    .cardProducts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,38 @@
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+
+    --write:#fff;
+    --black:#000;
+  
+    --dark-900:#101026;
+    --dark-700:#1D1D2E;
+  
+    --gray-100:#8A8A8A;
+    --green-900:#3fffa3;
+    --red-900:#FF3F4B;
+  
+  }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--dark-900);
+    color: #fff;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+
+a {
+    text-decoration: none;
+    color: var(--write);
+}
