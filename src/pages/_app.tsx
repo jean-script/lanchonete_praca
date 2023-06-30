@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import AuthProvider from '@/contexts/Auth';
 import ProductsProvider from '@/contexts/Products'; 
 import TableProvider from '@/contexts/Table';
+import PedidosProvider from '@/contexts/Pedidos';
 
 /* AuthProvider para autenticação e usuario  */
 
@@ -20,9 +21,11 @@ export default function App({ Component, pageProps }: AppProps) {
     
     <AuthProvider>
       <ProductsProvider>
-        <TableProvider>
-          <Component {...pageProps} />
-        </TableProvider>
+        <PedidosProvider>
+          <TableProvider>
+            <Component {...pageProps} />
+          </TableProvider>
+        </PedidosProvider>
       </ProductsProvider>
     </AuthProvider>
   </>

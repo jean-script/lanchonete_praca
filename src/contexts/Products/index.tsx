@@ -56,7 +56,7 @@ function ProductsProvider({children}:any){
                 produto: item.id,
                 produtoNome: item.nome,
                 produtoDesc: item.descricao,
-                price: item.price * ( qtd - 1),
+                price: item.price,
                 qtd: qtd - 1 
             });
 
@@ -85,7 +85,7 @@ function ProductsProvider({children}:any){
                 produto: item.id,
                 produtoNome: item.nome,
                 produtoDesc: item.descricao,
-                price: item.price * ( qtd + 1),
+                price: item.price,
                 qtd:( qtd + 1) 
             });
             
@@ -97,7 +97,7 @@ function ProductsProvider({children}:any){
             produto: item.id,
             produtoNome: item.nome,
             produtoDesc: item.descricao,
-            price: item.price * qtd,
+            price: item.price,
             qtd:qtd
         })
         .then((value)=>{

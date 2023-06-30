@@ -2,13 +2,28 @@ import { createContext, useState, useContext } from 'react'
 import { db } from '@/services/firebaseConnection';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { ProductsContext } from '../Products';
+import { PedidosContext } from '../Pedidos'
 import { useRouter } from 'next/router';
 
 export const TableContext = createContext({});
 
+interface PedidosProps {
+    
+    id: string,
+    cliente:string,
+    numero: string,
+    status: string,
+    total: number,
+    created:Date ,  
+    
+}
+
 function TableProvider({children}:any){
 
+    
     const { setOpenCard, carinho, setCarinho }:any = useContext(ProductsContext);
+    const { pedidos, setPedidos }:any = useContext(PedidosContext);
+
     const router = useRouter()
 
     const [mesaAberta, setMesaAberta] = useState(false);
@@ -72,6 +87,25 @@ function TableProvider({children}:any){
         })
     }
 
+    async function PedidoFinalizado(data:PedidosProps){    
+
+        console.log(pedidos);
+        
+        await updateDoc(doc(db, 'Mesa',data.id),{
+            number: data.numero,
+            cliente: data.cliente,
+            status: 'finalizado',
+            total:data.total,
+            updateAd: new Date()
+        }).then(()=>{
+            const peds = pedidos.filter((item:any)=> item.id !== data.id)
+            console.log("pedidos"+pedidos);
+            
+            setPedidos(peds)
+
+        })
+    }
+
     return(
         <TableContext.Provider
             value={{
@@ -83,7 +117,8 @@ function TableProvider({children}:any){
                 idMesa,
                 mesaAberta,
                 CloseTable,
-                MudaStatusMesa
+                MudaStatusMesa,
+                PedidoFinalizado
             }}
         >
             {children}

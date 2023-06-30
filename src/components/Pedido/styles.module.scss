@@ -4,20 +4,10 @@
     width: 100%;
     display: flex;
     padding: 10px 20px;
-
-    button {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        background: transparent;
-        border: none;
-        color: var(--white);
-        font-size: 20px;
-    }
 }
 
 .divisor {
-    height: 50px;
+    height: auto;
     width: 10px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -26,12 +16,137 @@
 
 .content {
     width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
+    min-height: 50px;
+    height: auto;
+    
+    padding: 0px 20px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     background-color: var(--dark-700);
+
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+        font-size: 20px;
+        padding: 5px 0px;
+    }
+    .footerMesa {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 5px 0;
+
+        span{
+            font-size: 20px;
+            padding: 5px 0;
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: var(--green-900);
+            color: var(--white);
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            padding: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+    }
+
+
+    table {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        table-layout: fixed;
+        border-collapse:collapse ;
+    }
+        
+    table caption {
+        font-size: 1.5em;
+        margin: 0.5em 0 0.75em;
+    }
+    
+    table tr {
+        // background-color: var(--dark-900);
+        border: 1px solid #ddd;
+        padding: 0.35em;
+    }
+    
+    table th, table td {
+        padding: 0.62em;
+        text-align: center;
+    }
+    
+    table th {
+        font-size: 0.85em;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+    
+    table td .action {
+        border: 0;
+        padding: 5px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-right: 3px;
+    }
+    
+    table td .action svg{
+        vertical-align: middle;
+    }
+    
+    table td .badge{
+        padding: 3px;
+        border-radius: 3px;
+        color: #fff;
+    }
+
+    @media screen and (max-width:600px){
+        table{
+            border: 0;
+        }
+        table caption {
+            font-size: 1.3em;
+        }
+    
+        table thead {
+            border: none;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+    
+        table tr {
+            border-bottom: 3px solid #DDD;
+            display: block;
+            margin-bottom: 0.60rem;
+        }
+    
+        table td {
+            border-bottom:1px solid #ddd;
+            display: block;
+            font-size: 0.8em;
+            text-align: right;
+        }
+    
+        table td::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+
 
 }
