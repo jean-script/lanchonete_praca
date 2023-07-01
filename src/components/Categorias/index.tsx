@@ -55,7 +55,7 @@ export function CategoriaCards(){
         <section className={styles.container}>
             <div>
                 <button onClick={()=> handleFilter('Todos')}>Todos</button>
-                {categorias.map((item)=>(
+                {categorias.map((item:any)=>(
                     <button key={item.id} onClick={()=> handleFilter(item.id)}>{item.categoria}</button>
                 ))}
                

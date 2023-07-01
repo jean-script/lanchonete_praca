@@ -14,13 +14,13 @@ const listRef = collection(db, "Categorias")
 
 export default function Produtos(){
 
-    const [categorias, setCategorias] = useState([]);
-    const [categoriasSelect, setCategoriasSelect] = useState(0);
-    const [nome, setNome] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [preco, setPreco] = useState('');
-    const [imageAvatar, setImageAvatar] = useState(null);
-    const [avatarUrl, setAvatarUrl] = useState(null);
+    const [categorias, setCategorias]:any = useState([]);
+    const [categoriasSelect, setCategoriasSelect]:any = useState(0);
+    const [nome, setNome]:any = useState('');
+    const [descricao, setDescricao]:any = useState('');
+    const [preco, setPreco]:any = useState('');
+    const [imageAvatar, setImageAvatar]:any = useState(null);
+    const [avatarUrl, setAvatarUrl]:any = useState(null);
 
     useEffect(()=>{
         async function LoadCategorias(){
@@ -99,7 +99,7 @@ export default function Produtos(){
         
     }
 
-    function handleFile(e){
+    function handleFile(e:any){
         if(e.target.files[0]){
             const image = e.target.files[0];
 
@@ -149,7 +149,7 @@ export default function Produtos(){
                         </label>
                             
                         <select value={categoriasSelect} onChange={hendleCustomerChange}>
-                            {categorias.map((value:any, index)=>(
+                            {categorias.map((value:any, index:any)=>(
                                 <option key={index} value={index}>{value.categoria}</option>
                             ))}
                         </select>
