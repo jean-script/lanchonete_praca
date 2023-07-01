@@ -11,7 +11,7 @@ export default function CreateUser(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { CreateUser } = useContext(AuthContext);
+    const { CreateUser,  }:any = useContext(AuthContext);
 
     async function handleRegisterUser(event:ChangeEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -44,7 +44,7 @@ export default function CreateUser(){
                     <input type='text' placeholder='Digite o nome' value={nome} onChange={(e)=> setNome(e.target.value)}/>
                     <input type='email' placeholder='Digite o email'value={email} onChange={(e)=> setEmail(e.target.value)}/>
                     <input type='password' placeholder='Digite a senha' value={password} onChange={(e)=> setPassword(e.target.value)}/>
-
+                                
                     <button type='submit'>Cadastrar</button>
 
                 </form>

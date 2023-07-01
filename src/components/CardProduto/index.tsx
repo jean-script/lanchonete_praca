@@ -3,21 +3,18 @@ import styles from './styles.module.scss';
 import formatCurrency from '@/ultis/formatCurrecy';
 import { useState, useContext } from 'react';
 import { ProductsContext } from '@/contexts/Products'; 
-import { addDoc, collection } from 'firebase/firestore';
-import { db } from '@/services/firebaseConnection';
+
+import { IoMdAdd, IoMdRemove } from 'react-icons/io'
+import { BsCartCheckFill} from 'react-icons/bs'
 
 type CardProductsProps = {
-   
     nome:string,
     descricao:string,
     price:string,
     image:any,
     id:string,
-    mesaId:string
-
+    mesaId:string,
 }
-
-const listRefItems = collection(db, "items");
 
 export function CardProduto(data:CardProductsProps){
 
@@ -45,15 +42,25 @@ export function CardProduto(data:CardProductsProps){
 
             <div className={styles.info}>
                 <h3>{data.nome}</h3>
-                <div>
                     <span>{formatCurrency(Number(data.price), 'BRL')}</span>
+
                     <div className={styles.qtd}>
-                        <button onClick={()=> setQtd(qtd + 1)}>+</button>
-                        {qtd}
-                        <button onClick={()=> diminuirQdt()}>-</button>
+                        <div>
+
+                            <button onClick={()=> setQtd(qtd + 1)}>
+                                <IoMdAdd size={20} />
+                            </button>
+
+                            <span>{qtd}</span>
+
+                            <button onClick={()=> diminuirQdt()}>
+                                <IoMdRemove size={20} />
+                            </button>
+
+                        </div>
+
+                        <button onClick={()=> addCarinhoComqtd(data, qtd) } ><BsCartCheckFill size={20} color='#000' /></button>
                     </div>
-                </div>
-                <button className={styles.btnAdd} onClick={()=> addCarinhoComqtd(data, qtd) } >Adicionar</button>
             </div>
         </article>
     )

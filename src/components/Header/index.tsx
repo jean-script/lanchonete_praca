@@ -7,7 +7,7 @@ import { FiLogOut } from 'react-icons/fi';
 
 export function Header(){
 
-    const { Logout } = useContext(AuthContext);
+    const { Logout }:any = useContext(AuthContext);
 
     function handleSair(){
         Logout();
@@ -24,13 +24,14 @@ export function Header(){
 
                 <div className={styles.nav}>
                     <nav>
+                        <Link href='/analytics'>Analytics</Link>
                         <Link href='/produtos'>Novo produto</Link>
                         <Link href='/categoria'>Categoria</Link>
-                        <Link href='/createuser'>Criar Usuário</Link>
+                        <Link href='/createuser'>Criar usuário</Link>
                     </nav>
 
                     <button onClick={()=> handleSair()}>
-                        <FiLogOut size={25} color='#fff' />
+                        <FiLogOut size={25} color='#454444' />
                     </button>
 
                 </div>

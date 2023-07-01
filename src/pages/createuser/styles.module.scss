@@ -2,7 +2,7 @@
 
 .main {
     width: 100%;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 80px);
     display: block;
     display: flex;
     justify-content: center;
@@ -42,6 +42,13 @@
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         background-color: #fff;
+
+        div {
+            color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
 
         input {

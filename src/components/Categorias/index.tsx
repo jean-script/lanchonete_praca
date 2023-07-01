@@ -6,19 +6,18 @@ import { db } from '@/services/firebaseConnection';
 import { ProductsContext } from '@/contexts/Products'
 
 const listRef = collection(db, "Categorias");
-const listRefProducts = collection(db, "Produtos");
 
 export function CategoriaCards(){
 
     const [categorias, setCategorias] = useState([]);
     const [Products, setProducts] = useState([]);
-    const { getProducts } = useContext(ProductsContext);
+    const { getProducts }:any = useContext(ProductsContext);
 
     useEffect(()=>{
         async function LoadCategorias(){
             const querySnapshot = await getDocs(listRef)
             .then((snapshot)=>{
-                let lista = [];
+                let lista:any = [];
 
                 snapshot.forEach((doc)=>{
                     lista.push({

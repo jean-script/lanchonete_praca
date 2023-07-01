@@ -4,15 +4,17 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 import image from '@/../public/lanchonete.jpg';
 
+import { FaUser } from 'react-icons/fa';
+import { RiLockPasswordFill } from 'react-icons/ri';
+
 import { AuthContext } from '@/contexts/Auth';
-import { GetServerSideProps } from 'next';
 
 export default function Home() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { Login } = useContext(AuthContext);
+  const { Login, load }:any = useContext(AuthContext);
 
   async function handleLogin(e:ChangeEvent<HTMLInputElement>){
     e.preventDefault();
@@ -39,10 +41,19 @@ export default function Home() {
 
           <Image src={image} alt='image de lanche' />
           <form className={styles.forms}>
-            <input type='email' placeholder='Digite seu email' value={email} onChange={(e)=> setEmail(e.target.value)}/>
-            <input type='password' placeholder='Digite sua senha' value={password} onChange={(e)=> setPassword(e.target.value)}/>
 
-            <button type='submit'>Entrar</button>
+            <div>
+              <FaUser size={25} color='#777774' />
+              <input type='email' placeholder='Digite seu email' value={email} onChange={(e)=> setEmail(e.target.value)}/>
+            </div>
+            <div>
+              <RiLockPasswordFill size={25} color='#777774' />
+              <input type='password' placeholder='Digite sua senha' value={password} onChange={(e)=> setPassword(e.target.value)}/>
+            </div>
+
+            <div>
+              <button type='submit'>{!load ? "Entrar" : "Carregando..."}</button>
+            </div>
 
           </form>
 
@@ -51,11 +62,4 @@ export default function Home() {
     </>
   )
 }
-export const getServerSideProps: GetServerSideProps = async () => {
-  
-  return{
-    props:{
-        
-    },
-}
-}
+

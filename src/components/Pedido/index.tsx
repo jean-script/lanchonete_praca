@@ -1,13 +1,14 @@
 import { useEffect, useState, useContext } from 'react'
 
 import { db } from '@/services/firebaseConnection';
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, orderBy, query, where } from 'firebase/firestore';
 
 import styles from './styles.module.scss';
 
 import formatCurrency from '@/ultis/formatCurrecy';
 
 import { TableContext } from '@/contexts/Table'
+import { ProductsContext } from '@/contexts/Products';
 
 interface PedidosProps {
     data:{
@@ -16,7 +17,8 @@ interface PedidosProps {
         numero: string,
         status: string,
         total: number,
-        created:Date ,  
+        created:Date ,
+        createdFormat: string
     },
 }
 
@@ -35,6 +37,7 @@ export function Pedido({data}:PedidosProps){
 
     const [ items, setItems ] = useState([]);
     const { PedidoFinalizado }:any = useContext(TableContext);
+    const { RemoveCarinho }:any = useContext(ProductsContext);
 
     useEffect(()=>{
         async function loadItems() {
@@ -69,51 +72,78 @@ export function Pedido({data}:PedidosProps){
         }
     }
 
-    function handlefecharMesa(data:any){
+    async function handleFecharMesa(idMesa:any){
+        items.map((item:any)=>{
+            RemoveCarinho(item.id, item.id)
+        })
+
+        await deleteDoc(doc(db, 'Mesa',idMesa))
+    }
+
+    function handleFinalizarPedidio(data:any){
         PedidoFinalizado(data)
     }
 
     return (
         <article className={styles.container}>
-            
-            <div className={styles.divisor}/>
 
-            <div className={styles.content}>
+            {data.status == 'finalizado' &&(
+               <article>
+                    {data.createdFormat}
+               </article>
+            )}
 
-                <h3>Numéro do pedido: {data.numero}</h3>
+            <section>
+                <div className={styles.divisor}/>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">Produto</th>
-                            <th scope="col">Descrição</th>
-                            <th scope="col">Quant</th>
-                            <th scope="col">Preço</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
+                <div className={styles.content}>
 
-                    <tbody>
-                        {items.map((item:ItemsProps, index)=>(
-                            <tr key={index}>
-                                <td data-label="Produto">{item.produtoNome}</td>
-                                <td data-label="Descrição">{item.produtoDesc}</td>
-                                <td data-label="Quant">{item.qtd}</td>
-                                <td data-label="Preço">{formatCurrency(item.price, "BRL")}</td>
-                                <td data-label="Total">{formatCurrency(item.price * item.qtd, "BRL")}</td>
+                    <div className={styles.footerMesa}>
+                        <h3>Numéro do pedido: {data.numero}</h3>
+                        {data.status == 'preparando' &&(
+                            <button className={styles.btnCancelar}  onClick={()=> handleFecharMesa(data.id)}>
+                                Cancelar
+                            </button>
+                        )}
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Produto</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Quant</th>
+                                <th scope="col">Preço</th>
+                                <th scope="col">Total</th>
                             </tr>
-                        ))}
-                    </tbody>
+                        </thead>
 
-                </table>
-                
-                <div className={styles.footerMesa}>
-                    <span>
-                        <strong>Total Pedido: {formatCurrency(data.total, "BRL")}</strong>
-                    </span>
-                    <button onClick={()=> handlefecharMesa(data)}>Fechar mesa</button>
+                        <tbody>
+                            {items.map((item:ItemsProps, index)=>(
+                                <tr key={index}>
+                                    <td data-label="Produto">{item.produtoNome}</td>
+                                    <td data-label="Descrição">{item.produtoDesc}</td>
+                                    <td data-label="Quant">{item.qtd}</td>
+                                    <td data-label="Preço">{formatCurrency(item.price, "BRL")}</td>
+                                    <td data-label="Total">{formatCurrency(item.price * item.qtd, "BRL")}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+
+                    </table>
+                    
+                    <div className={styles.footerMesa}>
+                        <span>
+                            <strong>Total do Pedido: {formatCurrency(data.total, "BRL")}</strong>
+                        </span>
+                        {data.status == 'preparando' &&(
+                            <button onClick={()=> handleFinalizarPedidio(data)}>Fechar mesa</button>
+                        )}
+                    </div>
                 </div>
-            </div>
+
+            </section>
+
 
         </article>
     )

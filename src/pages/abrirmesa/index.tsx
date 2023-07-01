@@ -16,18 +16,16 @@ export default function AbrirMesa(){
     const { getProducts, products, carinho }:any = useContext(ProductsContext);
     const { numberMesa, CloseTable,
             setNumberMesa, cliente, setCliente, 
-            idMesa, OpenTable, mesaAberta 
+            idMesa, OpenTable, mesaAberta, geraNum
         }:any = useContext(TableContext);
 
     useEffect(()=>{
         async function loadProdutos(){
             await getProducts('Todos')
         }
-
         loadProdutos()
+        geraNum()
     }, [])
-
-
 
     async function handleAbrirMesa(e:ChangeEvent<HTMLInputElement>){
         e.preventDefault();
@@ -57,7 +55,7 @@ export default function AbrirMesa(){
 
                     {!mesaAberta &&(
                         <>
-                            <h1>Abrir nova Mesa</h1>
+                            <h1>Abrir novo Pedido</h1>
                             <form className={styles.forms}>
 
                                 <input 
@@ -81,7 +79,7 @@ export default function AbrirMesa(){
                     {mesaAberta &&(
                         <>
                             <div className={styles.formsContainer}>
-                                <h1>Mesa {numberMesa} {cliente &&(
+                                <h1>Monte seu pedido {cliente &&(
                                     <>
                                         cliente {cliente}
                                     </>
@@ -97,6 +95,7 @@ export default function AbrirMesa(){
 
                                 {products.map((item:any)=>(
                                     <CardProduto 
+                                        key={item.id}
                                         nome={item.nome} 
                                         descricao={item.descricao} 
                                         image={item.avatarUrl}

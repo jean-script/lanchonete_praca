@@ -3,7 +3,9 @@
 .header {
     width: 100%;
     display: block;
-    height: 60px;
+    min-height: 60px;
+    background-color:  #fff159;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .container {
@@ -16,18 +18,26 @@
     justify-content: space-between;
     padding: 20px 5px 10px 5px;
 
+    h1 {
+        color: #454444;
+        font-weight: bold;
+    }
 
 }
 
 .nav {
     display: flex;
     align-items: center;
+    color: #454444;
 
     nav a{
         margin-left: 10px;
+        color: #454444;
+        font-size: 20px;
 
         &:hover {
             text-decoration: underline;
+            color: #2f2f2f;
         }
     }
 

@@ -4,6 +4,7 @@ import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestor
 import { ProductsContext } from '../Products';
 import { PedidosContext } from '../Pedidos'
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 export const TableContext = createContext({});
 
@@ -31,12 +32,19 @@ function TableProvider({children}:any){
     const [cliente, setCliente] = useState('');
     const [idMesa, setIdMesa] = useState('');
 
+    function geraNum(){
+        return new Promise((resolve, reject)=>{
+            resolve(setNumberMesa(String(Math.floor(Math.random() * 100))))
+        })
+    }
+
     async function OpenTable() {
+
 
         if (numberMesa === '') {
             return;
         }
-
+        
         await addDoc(collection(db, 'Mesa'),{
             number: numberMesa,
             cliente: cliente,
@@ -48,15 +56,18 @@ function TableProvider({children}:any){
             setIdMesa(value.id)
             setMesaAberta(true);
         })
+        
     }
+        
 
     async function CloseTable(){
-        await deleteDoc(doc(db, 'Mesa',idMesa))
+        await deleteDoc(doc(db, 'Mesa',idMesa)).then(()=> toast.info('Pedido cancelado'))
         setCliente('');
         setMesaAberta(false);
         setNumberMesa('');
         setOpenCard(false)
         setCarinho([]);
+        geraNum()
         
     } 
 
@@ -82,6 +93,7 @@ function TableProvider({children}:any){
             setNumberMesa('');
             setOpenCard(false)
             setCarinho([]);
+            toast.info('Pedido em preparo')
             router.push('/dashboard')
 
         })
@@ -99,10 +111,8 @@ function TableProvider({children}:any){
             updateAd: new Date()
         }).then(()=>{
             const peds = pedidos.filter((item:any)=> item.id !== data.id)
-            console.log("pedidos"+pedidos);
-            
             setPedidos(peds)
-
+            toast.info('Pedido Finalizado');
         })
     }
 
@@ -118,7 +128,8 @@ function TableProvider({children}:any){
                 mesaAberta,
                 CloseTable,
                 MudaStatusMesa,
-                PedidoFinalizado
+                PedidoFinalizado,
+                geraNum
             }}
         >
             {children}

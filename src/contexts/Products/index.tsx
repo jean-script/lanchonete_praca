@@ -1,6 +1,7 @@
 import { db } from '@/services/firebaseConnection';
 import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore';
 import { createContext, useState } from 'react';
+import { toast } from 'react-toastify';
 
 
 type CardProductsProps = {
@@ -34,7 +35,7 @@ function ProductsProvider({children}:any){
 
     // remove o item clicado do carinho
     async function RemoveCarinho(id:string, idItem:string){
-        await deleteDoc(doc(db, 'items',idItem));
+        await deleteDoc(doc(db, 'items',idItem)).then(()=> toast.warn('Item remolvido'));
         const cart = carinho.filter((item:any)=> item.id !== id)
         setCarinho(cart);
     }
@@ -68,27 +69,66 @@ function ProductsProvider({children}:any){
         }
     }
 
-    // adiciona um item ao carrinho e criar um item no banco de dados
-    async function addCarinho(item:CardProductsProps,qtd:number){
-
+    async function addQuantCarinho(item:CardProductsProps,qtd:number) {
         let id = item.id;
-
+        console.log("item");
+        
+        console.log(item);
         const cart = carinho.filter((item:any)=> item.id == id)
-
+        console.log("cart");
+        console.log(cart);
+        
         if (cart.length >=1) {
             const t = carinho.findIndex((i:any) => i.id === id);
             carinho[t].qtd+=1;
+            console.log(carinho[t].idItem);
+            console.log(item.idItem);
+        
             addQtdProduct()
-
-            await updateDoc(doc(db, 'items',item.idItem),{
+            
+            await updateDoc(doc(db, "items",carinho[t].idItem),{
                 mesaId: item.mesaId,
                 produto: item.id,
                 produtoNome: item.nome,
                 produtoDesc: item.descricao,
                 price: item.price,
-                qtd:( qtd + 1) 
-            });
+                qtd:( qtd + 1),
+                idItem:item.idItem
+            })
+
+            return;
+        }
+    }
+
+    // adiciona um item ao carrinho e criar um item no banco de dados
+    async function addCarinho(item:CardProductsProps,qtd:number){
+
+        let id = item.id;
+        console.log("item");
+        
+        console.log(item);
+        const cart = carinho.filter((item:any)=> item.id == id)
+        console.log("cart");
+        console.log(cart);
+        
+        if (cart.length >=1) {
+            // const t = carinho.findIndex((i:any) => i.id === id);
+            // carinho[t].qtd+=1;
+
+            // console.log(carinho[t].idItem);
+            // // console.log(item.idItem);
+        
+            // addQtdProduct()
             
+            // await updateDoc(doc(db, "items", ),{
+            //     mesaId: item.mesaId,
+            //     produto: item.id,
+            //     produtoNome: item.nome,
+            //     produtoDesc: item.descricao,
+            //     price: item.price,
+            //     qtd:( qtd + 1),
+            //     idItem:item.idItem
+            // })
             return;
         }
         
@@ -106,11 +146,8 @@ function ProductsProvider({children}:any){
                 qtd:qtd,
                 idItem:value.id
             }
-            setCarinho([...carinho,item])
-            console.log('Aqui');
-            
-            console.log(carinho);
-            
+            setCarinho([...carinho,item])    
+            toast.success("Item adicionado ao carinho!")        
         })
     }
     
@@ -184,6 +221,7 @@ function ProductsProvider({children}:any){
                 setOpenCard,
                 openCard,
                 addQtdProduct,
+                addQuantCarinho,
                 RevCarinho,
                 qtd
             }}

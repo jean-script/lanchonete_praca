@@ -1,6 +1,5 @@
 import { useEffect, useState, ChangeEvent } from 'react'
 import Head from "next/head";
-import Image from "next/image";
 import { Header  } from '../../components/Header';
 import { IoAdd } from 'react-icons/io5';
 
@@ -8,21 +7,18 @@ import styles from './styles.module.scss';
 import { addDoc, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { db, storge } from '@/services/firebaseConnection';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { toast } from 'react-toastify';
 
 const listRef = collection(db, "Categorias")
 
 
-type Categoria = {
-    id:string,
-    categoria:string
-}
 export default function Produtos(){
 
     const [categorias, setCategorias] = useState([]);
     const [categoriasSelect, setCategoriasSelect] = useState(0);
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
-    const [preco, setPreco] = useState(0);
+    const [preco, setPreco] = useState('');
     const [imageAvatar, setImageAvatar] = useState(null);
     const [avatarUrl, setAvatarUrl] = useState(null);
 
@@ -30,7 +26,7 @@ export default function Produtos(){
         async function LoadCategorias(){
             const querySnapshot = await getDocs(listRef)
             .then((snapshot)=>{
-                let lista = [];
+                let lista:any = [];
 
                 snapshot.forEach((doc)=>{
                     lista.push({
@@ -39,7 +35,6 @@ export default function Produtos(){
                     })
                 })
                 if(snapshot.size === 0){
-                    // setCategorias([{id:"1":, categoria:"Freela"}])
                     return;
                 }
 
@@ -96,6 +91,8 @@ export default function Produtos(){
                             avatarUrl:urlFoto
                         })
                     })
+
+                    toast.success('Novo Produto registrado')
                 })
             })
         }
@@ -147,12 +144,12 @@ export default function Produtos(){
                                 <img src={avatarUrl} alt="foto de perfil" width={250} height={250} />
                             )}
                             
-                            <IoAdd size={35} color="#fff"/>
+                            <IoAdd size={35} color="#000"/>
                             
                         </label>
                             
                         <select value={categoriasSelect} onChange={hendleCustomerChange}>
-                            {categorias.map((value, index)=>(
+                            {categorias.map((value:any, index)=>(
                                 <option key={index} value={index}>{value.categoria}</option>
                             ))}
                         </select>
@@ -161,7 +158,7 @@ export default function Produtos(){
                             value={nome} onChange={(e)=> setNome(e.target.value)}
                         />
                         <input type="number" placeholder="Digite o preço" 
-                            value={preco} onChange={(e)=> setPreco(Number(e.target.value))}
+                            value={preco} onChange={(e)=> setPreco(e.target.value)}
                         />
                         <textarea placeholder="Digite a descrição do produto"
                             value={descricao} onChange={(e)=> setDescricao(e.target.value)}

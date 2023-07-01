@@ -2,8 +2,11 @@
 
 .container {
     width: 100%;
-    display: flex;
     padding: 10px 20px;
+    
+    section{
+        display: flex;
+    }
 }
 
 .divisor {
@@ -11,7 +14,8 @@
     width: 10px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    background-color: var(--green-900);
+    background-color: var(--gray-100);
+    padding-bottom: 5px;
 }
 
 .content {
@@ -22,7 +26,9 @@
     padding: 0px 20px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    background-color: var(--dark-700);
+    background-color: #ffffffea;
+    color: #252525;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 
     display: flex;
     flex-direction: column;
@@ -30,7 +36,12 @@
     h3 {
         font-size: 20px;
         padding: 5px 0px;
+
+        img {
+            object-fit: contain;
+        }
     }
+
     .footerMesa {
         display: flex;
         align-items: center;
@@ -44,9 +55,13 @@
             margin-right: 5px;
         }
 
+        .btnCancelar {
+            background-color: var(--red-900);
+        }
+
         button {
             background-color: var(--green-900);
-            color: var(--white);
+            color:#ffffff;
             font-size: 16px;
             border: none;
             border-radius: 5px;

@@ -18,12 +18,14 @@
     --green-900:#3fffa3;
     --red-900:#FF3F4B;
   
-  }
+}
+
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--dark-900);
-    color: #fff;
+    // font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f1f1f1;
+    color: var(--write);
 }
 
 

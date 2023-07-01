@@ -5,6 +5,10 @@ import ProductsProvider from '@/contexts/Products';
 import TableProvider from '@/contexts/Table';
 import PedidosProvider from '@/contexts/Pedidos';
 
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 /* AuthProvider para autenticação e usuario  */
 
 /* 
@@ -20,6 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
   <>
     
     <AuthProvider>
+      <ToastContainer  autoClose={3000} limit={3}/>
       <ProductsProvider>
         <PedidosProvider>
           <TableProvider>
