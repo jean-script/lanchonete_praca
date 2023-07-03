@@ -1,13 +1,17 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '@/contexts/Auth'
 import Link from 'next/link';
 import styles from './styles.module.scss';
 
 import { FiLogOut } from 'react-icons/fi';
+import { BiMenu, BiUser} from 'react-icons/bi'
+import { TbBrandGoogleAnalytics, TbCategory, TbBrandProducthunt } from 'react-icons/tb';
+
 
 export function Header(){
 
     const { Logout }:any = useContext(AuthContext);
+    const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
     function handleSair(){
         Logout();
@@ -33,6 +37,40 @@ export function Header(){
                     <button onClick={()=> handleSair()}>
                         <FiLogOut size={25} color='#454444' />
                     </button>
+
+                </div>
+
+                <div className={ openMobileMenu ? styles.activeMobile : styles.mobile }>
+                    <button onClick={()=> setOpenMobileMenu(!openMobileMenu)}>
+                        <BiMenu size={45}/>
+                    </button>
+                    <nav>
+                        
+                        <Link href='/analytics'>
+                            <TbBrandGoogleAnalytics size={25} />
+                            Analytics
+                        </Link>
+                    
+                        <Link href='/produtos'>
+                            <TbBrandProducthunt size={25} />
+                            Novo produto
+                        </Link>
+                    
+                        <Link href='/categoria'>
+                            <TbCategory size={25} />
+                            Categoria
+                        </Link>
+                        
+                        <Link href='/createuser'>
+                            <BiUser size={25} />
+                            Criar usuário
+                        </Link>
+                        
+                        <button onClick={()=> handleSair()}>
+                            <FiLogOut size={25} color='#454444' /> 
+                            <span>Sair</span>
+                        </button>
+                    </nav>
 
                 </div>
 

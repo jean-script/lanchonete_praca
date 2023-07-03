@@ -59,9 +59,84 @@
     font-size: 16px;
 }
 
+.mobile {
+    display: none;
+    transition: all 0.3s;
 
-@media screen and (max-width:750px){
-    .container {
-        flex-direction: column;
+    nav {
+        display: none;
     }
+}
+
+@media screen and (max-width:800px){
+    .container {
+        // flex-direction: column;
+
+        .nav {
+            display: none;
+        }
+
+        .mobile {
+            display: flex;
+            padding: 0 5px;
+
+            button {
+                background: transparent;
+                border: none;
+            }
+        }
+    }
+
+
+    
+.activeMobile {
+    display: flex;
+    position: relative;
+
+    nav {
+        position: absolute;
+        top: 120%;
+        right: 0;
+        background-color: #fff159;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+        height: 660px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        width: 200px;
+        
+        a {
+            color: #2f2f2f;
+            padding: 10px 0;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            border-bottom: 1px solid #000;
+            width: 100%;
+
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+
+        button {
+            flex: 1;
+            padding-top: 260px;
+            margin-left: 110px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    }
+
+    button {
+        background: transparent;
+        border: none;
+    }
+
+}
+
 }
