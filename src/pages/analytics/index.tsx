@@ -10,27 +10,32 @@ import { AuthContext } from '@/contexts/Auth';
 
 import formatCurrency from '@/ultis/formatCurrecy';
 
+import { format } from 'date-fns';
+
 
 export default function Analytics(){
 
     const { pedidos, loadPedidos, setPedidos }:any = useContext(PedidosContext);
     const { load }:any = useContext(AuthContext);
 
-    // const [dataInicial, SetDataInicial] = useState('');
-    // const [dataFinal, SetDataFinal] = useState('');
+    const [dataInicial, SetDataInicial] = useState('');
+    const [dataFinal, SetDataFinal] = useState('');
+    const [pedidosSave, setPedidosSave] = useState([]);
 
 
     useEffect(()=>{
         loadPedidos('finalizado');
+        setPedidosSave(pedidos);        
     },[])
     
     const totalPrice = pedidos.reduce((acc:number, item:any )=>{
         return item.total + acc;
     }, 0);
-    // function handleFiltrar(){
-    //     let data = pedidos.filter((ped:any)=> ped.createdFormat == format(new Date(dataInicial), 'dd/MM/yyyy'));
-    //     setPedidos(data)
-    // }
+
+    function handleFiltrar(){
+        let data = pedidos.filter((ped:any)=> ped.createdFormat == format(new Date(dataInicial), 'dd/MM/yyyy'));
+        setPedidos(data)
+    }
 
     return (
         <>
@@ -41,8 +46,11 @@ export default function Analytics(){
             <Header/>
             <main className={styles.main}>
                <div className={styles.container}>
+
                     <div className={styles.filtrosInfo}>
-                        <span>{formatCurrency(totalPrice, "BRL")}</span>
+                        {/* <input type='datetime-local' value={dataInicial} onChange={(e)=> SetDataInicial(e.target.value)}/>
+                        <button onClick={()=> handleFiltrar()} >Filtrar</button> */}
+                        { formatCurrency(totalPrice, "BRL")}
                     </div>
 
                     {/* mostrando todos os pedidos */}

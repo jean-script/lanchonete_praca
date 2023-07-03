@@ -87,11 +87,11 @@ export function Pedido({data}:PedidosProps){
     return (
         <article className={styles.container}>
 
-            {data.status == 'finalizado' &&(
+            {/* {data.status == 'finalizado' &&(
                <article>
                     {data.createdFormat}
                </article>
-            )}
+            )} */}
 
             <section>
                 <div className={styles.divisor}/>

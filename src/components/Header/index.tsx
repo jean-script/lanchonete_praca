@@ -3,6 +3,7 @@ import { AuthContext } from '@/contexts/Auth'
 import Link from 'next/link';
 import styles from './styles.module.scss';
 
+import { AiOutlineHome } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi';
 import { BiMenu, BiUser} from 'react-icons/bi'
 import { TbBrandGoogleAnalytics, TbCategory, TbBrandProducthunt } from 'react-icons/tb';
@@ -45,6 +46,11 @@ export function Header(){
                         <BiMenu size={45}/>
                     </button>
                     <nav>
+
+                        <Link href='/dashboard'>
+                            <AiOutlineHome size={25}/>
+                            Dashboard
+                        </Link>
                         
                         <Link href='/analytics'>
                             <TbBrandGoogleAnalytics size={25} />
