@@ -10,8 +10,10 @@ const listRef = collection(db, "Categorias");
 export function CategoriaCards(){
 
     const [categorias, setCategorias] = useState([]);
-    const [Products, setProducts] = useState([]);
+    const [categoriaSelected, setCategoriaSelected] = useState('Todos')
+    const [ Products, setProducts] = useState([]);
     const { getProducts }:any = useContext(ProductsContext);
+
 
     useEffect(()=>{
         async function LoadCategorias(){
@@ -26,37 +28,34 @@ export function CategoriaCards(){
                     })
                 })
                 if(snapshot.size === 0){
-                    // setCategorias([{id:"1":, categoria:"Freela"}])
                     return;
                 }
 
-                setCategorias(lista);
-                console.log(lista);
-                
-                
+                setCategorias(lista);                
             })
             .catch((e)=>{
                 console.log(e);
                 
             })
-
-
         }
 
         LoadCategorias();
     },[])
 
-    async function handleFilter(id:any){
+    async function handleFilter(id:any, categoria:string){
+        setCategoriaSelected(categoria);
         let data = await getProducts(id)
         setProducts(data);
     }
 
+
     return (
         <section className={styles.container}>
             <div>
-                <button onClick={()=> handleFilter('Todos')}>Todos</button>
+                <button onClick={()=> handleFilter('Todos', 'Todos')} className={'Todos' === categoriaSelected ? styles.activeBtn : ''}>Todos</button>
+
                 {categorias.map((item:any)=>(
-                    <button key={item.id} onClick={()=> handleFilter(item.id)}>{item.categoria}</button>
+                    <button key={item.id} className={item.categoria === categoriaSelected ? styles.activeBtn : ''} onClick={()=> handleFilter(item.id, item.categoria)}><span>{item.categoria}</span></button>
                 ))}
                
             </div>

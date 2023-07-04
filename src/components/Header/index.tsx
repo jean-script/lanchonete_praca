@@ -11,7 +11,7 @@ import { TbBrandGoogleAnalytics, TbCategory, TbBrandProducthunt } from 'react-ic
 
 export function Header(){
 
-    const { Logout }:any = useContext(AuthContext);
+    const { Logout, user }:any = useContext(AuthContext);
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
     function handleSair(){
@@ -29,10 +29,14 @@ export function Header(){
 
                 <div className={styles.nav}>
                     <nav>
-                        <Link href='/analytics'>Analytics</Link>
-                        <Link href='/produtos'>Novo produto</Link>
-                        <Link href='/categoria'>Categoria</Link>
-                        <Link href='/createuser'>Criar usuário</Link>
+                        {user?.admin &&(
+                            <>
+                                <Link href='/analytics'>Analytics</Link>
+                                <Link href='/produtos'>Novo produto</Link>
+                                <Link href='/categoria'>Categoria</Link>
+                                <Link href='/createuser'>Criar usuário</Link>
+                            </>
+                        )}
                     </nav>
 
                     <button onClick={()=> handleSair()}>
@@ -51,26 +55,29 @@ export function Header(){
                             <AiOutlineHome size={25}/>
                             Dashboard
                         </Link>
-                        
-                        <Link href='/analytics'>
-                            <TbBrandGoogleAnalytics size={25} />
-                            Analytics
-                        </Link>
-                    
-                        <Link href='/produtos'>
-                            <TbBrandProducthunt size={25} />
-                            Novo produto
-                        </Link>
-                    
-                        <Link href='/categoria'>
-                            <TbCategory size={25} />
-                            Categoria
-                        </Link>
-                        
-                        <Link href='/createuser'>
-                            <BiUser size={25} />
-                            Criar usuário
-                        </Link>
+                        {user?.admin &&(
+                            <>
+                                <Link href='/analytics'>
+                                    <TbBrandGoogleAnalytics size={25} />
+                                    Analytics
+                                </Link>
+                            
+                                <Link href='/produtos'>
+                                    <TbBrandProducthunt size={25} />
+                                    Novo produto
+                                </Link>
+                            
+                                <Link href='/categoria'>
+                                    <TbCategory size={25} />
+                                    Categoria
+                                </Link>
+                                
+                                <Link href='/createuser'>
+                                    <BiUser size={25} />
+                                    Criar usuário
+                                </Link>
+                            </>
+                        )}
                         
                         <button onClick={()=> handleSair()}>
                             <FiLogOut size={25} color='#454444' /> 

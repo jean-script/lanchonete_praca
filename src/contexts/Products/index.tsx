@@ -35,7 +35,7 @@ function ProductsProvider({children}:any){
 
     // remove o item clicado do carinho
     async function RemoveCarinho(id:string, idItem:string){
-        await deleteDoc(doc(db, 'items',idItem)).then(()=> toast.warn('Item remolvido'));
+        // await deleteDoc(doc(db, 'items',idItem)).then(()=> toast.warn('Item remolvido'));
         const cart = carinho.filter((item:any)=> item.id !== id)
         setCarinho(cart);
     }
@@ -52,14 +52,14 @@ function ProductsProvider({children}:any){
                 return;
             }
 
-            await updateDoc(doc(db, 'items',item.idItem),{
-                mesaId: item.mesaId,
-                produto: item.id,
-                produtoNome: item.nome,
-                produtoDesc: item.descricao,
-                price: item.price,
-                qtd: qtd - 1 
-            });
+            // await updateDoc(doc(db, 'items',item.idItem),{
+            //     mesaId: item.mesaId,
+            //     produto: item.id,
+            //     produtoNome: item.nome,
+            //     produtoDesc: item.descricao,
+            //     price: item.price,
+            //     qtd: qtd - 1 
+            // });
 
             carinho[t].qtd-=1;
             addQtdProduct()
@@ -86,15 +86,15 @@ function ProductsProvider({children}:any){
         
             addQtdProduct()
             
-            await updateDoc(doc(db, "items",carinho[t].idItem),{
-                mesaId: item.mesaId,
-                produto: item.id,
-                produtoNome: item.nome,
-                produtoDesc: item.descricao,
-                price: item.price,
-                qtd:( qtd + 1),
-                idItem:item.idItem
-            })
+            // await updateDoc(doc(db, "items",carinho[t].idItem),{
+            //     mesaId: item.mesaId,
+            //     produto: item.id,
+            //     produtoNome: item.nome,
+            //     produtoDesc: item.descricao,
+            //     price: item.price,
+            //     qtd:( qtd + 1),
+            //     idItem:item.idItem
+            // })
 
             return;
         }
@@ -105,50 +105,26 @@ function ProductsProvider({children}:any){
 
         let id = item.id;
         console.log("item");
-        
-        console.log(item);
         const cart = carinho.filter((item:any)=> item.id == id)
-        console.log("cart");
-        console.log(cart);
+        // console.log("cart");
+        // console.log(cart);
         
         if (cart.length >=1) {
-            // const t = carinho.findIndex((i:any) => i.id === id);
-            // carinho[t].qtd+=1;
-
-            // console.log(carinho[t].idItem);
-            // // console.log(item.idItem);
-        
-            // addQtdProduct()
-            
-            // await updateDoc(doc(db, "items", ),{
-            //     mesaId: item.mesaId,
-            //     produto: item.id,
-            //     produtoNome: item.nome,
-            //     produtoDesc: item.descricao,
-            //     price: item.price,
-            //     qtd:( qtd + 1),
-            //     idItem:item.idItem
-            // })
+            const t = carinho.findIndex((i:any) => i.id === id);
+            carinho[t].qtd+=1;
+            console.log(carinho[t].idItem);
+            addQtdProduct()
             return;
         }
         
-        await addDoc(listRefItems, {
-            mesaId: item.mesaId,
-            produto: item.id,
-            produtoNome: item.nome,
-            produtoDesc: item.descricao,
-            price: item.price,
-            qtd:qtd
-        })
-        .then((value)=>{
-            item = {
-                ...item,
-                qtd:qtd,
-                idItem:value.id
-            }
-            setCarinho([...carinho,item])    
-            toast.success("Item adicionado ao carinho!")        
-        })
+        item = {
+            ...item,
+            qtd:qtd,
+            // idItem:value.id
+        }
+        setCarinho([...carinho,item])    
+        console.log(item);
+        
     }
     
     // função que filtra os produtos da tela de abrir mesa 

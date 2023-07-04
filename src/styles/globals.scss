@@ -20,9 +20,19 @@
   
 }
 
+html ::-webkit-scrollbar {
+    width: 5px;
+  }
+  html ::-webkit-scrollbar-thumb {
+    border-radius: 50px;
+    background: #fff159;
+  }
+  html ::-webkit-scrollbar-track {
+    background: #ededed;
+  }
+
 
 body {
-    // font-family: 'Poppins', sans-serif;
     font-family: 'Roboto', sans-serif;
     background-color: #f1f1f1;
     color: var(--write);

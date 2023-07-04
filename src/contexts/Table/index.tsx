@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 
 export const TableContext = createContext({});
 
+const listRefItems = collection(db, "items");
+
 interface PedidosProps {
     
     id: string,
@@ -26,78 +28,66 @@ function TableProvider({children}:any){
     const { pedidos, setPedidos }:any = useContext(PedidosContext);
 
     const router = useRouter()
-
-    const [mesaAberta, setMesaAberta] = useState(false);
     const [numberMesa, setNumberMesa] = useState('');
-    const [cliente, setCliente] = useState('');
-    const [idMesa, setIdMesa] = useState('');
+    const [loading, setLoading] = useState(false)
 
     function geraNum(){
         return new Promise((resolve, reject)=>{
-            resolve(setNumberMesa(String(Math.floor(Math.random() * 100))))
+            resolve(
+                setNumberMesa(String(Math.floor(Math.random() * 100)))                
+            )
         })
     }
 
     async function OpenTable() {
+        setLoading(true)
+        setNumberMesa(String(Math.floor(Math.random() * 100)))
 
-
-        if (numberMesa === '') {
-            return;
-        }
-        
-        await addDoc(collection(db, 'Mesa'),{
-            number: numberMesa,
-            cliente: cliente,
-            status: 'rascunho',
-            created: new Date(),
-            updateAd: new Date()
-        })
-        .then((value)=>{
-            setIdMesa(value.id)
-            setMesaAberta(true);
-        })
-        
-    }
-        
-
-    async function CloseTable(){
-        await deleteDoc(doc(db, 'Mesa',idMesa)).then(()=> toast.info('Pedido cancelado'))
-        setCliente('');
-        setMesaAberta(false);
-        setNumberMesa('');
-        setOpenCard(false)
-        setCarinho([]);
-        geraNum()
-        
-    } 
-
-    async function MudaStatusMesa(){
-
-        if (carinho.length <= 0) {
+        if(carinho.length <=0) {
+            toast.warn('Adicione items ao carinho para fechar o pedido!')
             return;
         }
 
         const totalPrice = carinho.reduce((acc:number, item:any )=>{
             return (item.price * item.qtd ) + acc;
         }, 0);
-
-        await updateDoc(doc(db, 'Mesa',idMesa),{
+        
+        await addDoc(collection(db, 'Mesa'),{
             number: numberMesa,
-            cliente: cliente,
+            cliente: null,
             status: 'preparando',
-            total:totalPrice,
-            updateAd: new Date()
-        }).then(()=>{
-            setCliente('');
-            setMesaAberta(false);
-            setNumberMesa('');
-            setOpenCard(false)
-            setCarinho([]);
-            toast.info('Pedido em preparo')
-            router.push('/dashboard')
-
+            created: new Date(),
+            updateAd: new Date(),
+            total: totalPrice
         })
+        .then((value)=>{
+            carinho.map(async (item:any)=>{
+                await addDoc(listRefItems, {
+                    mesaId: value.id,
+                    produto: item.id,
+                    produtoNome: item.nome,
+                    produtoDesc: item.descricao,
+                    price: item.price,
+                    qtd:item.qtd,
+                })
+            })
+            setCarinho([]);
+            setOpenCard(false)
+            setLoading(false);
+            router.push('/dashboard');
+        })
+        
     }
+        
+
+    async function CloseTable(id:string){
+        setNumberMesa('');
+        setOpenCard(false)
+        setCarinho([]);
+        geraNum()
+        router.push('/dashboard')
+    } 
+
 
     async function PedidoFinalizado(data:PedidosProps){    
 
@@ -122,14 +112,10 @@ function TableProvider({children}:any){
                 OpenTable,
                 numberMesa, 
                 setNumberMesa,
-                cliente, 
-                setCliente,
-                idMesa,
-                mesaAberta,
                 CloseTable,
-                MudaStatusMesa,
                 PedidoFinalizado,
-                geraNum
+                geraNum,
+                loading
             }}
         >
             {children}

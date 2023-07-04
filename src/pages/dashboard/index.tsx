@@ -12,11 +12,15 @@ import { AuthContext } from '@/contexts/Auth';
 
 export default function Dashboard(){
 
-    const { pedidos, loadPedidos }:any = useContext(PedidosContext);
+    const { pedidos, loadPedidos, setPedidos }:any = useContext(PedidosContext);
     const { load }:any = useContext(AuthContext);
 
     useEffect(()=>{
-        loadPedidos('preparando')    
+        loadPedidos('preparando')   
+        
+        return ()=> {
+            setPedidos([]);
+        }
     },[])
 
 

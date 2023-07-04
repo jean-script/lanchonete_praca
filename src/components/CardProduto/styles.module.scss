@@ -19,6 +19,28 @@
 
     transition: all 0.3s;
 
+    .EditProduct {
+        display: none;
+    }
+
+    &:hover .EditProduct {
+        display: flex;
+        position: absolute;
+        top: 2%;
+        right: 2%;
+
+        background-color: #fff;
+        border: none;
+        border-radius: 50%;
+
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     &:hover {
         background-color: #F97B22;
     }

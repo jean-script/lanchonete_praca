@@ -50,6 +50,10 @@ export function Pedido({data}:PedidosProps){
         }
 
         loadItems()
+
+        return ()=>{
+            setItems([]);
+        }
     },[])
 
     async function updateState(querySnapshot:any){
@@ -87,12 +91,6 @@ export function Pedido({data}:PedidosProps){
     return (
         <article className={styles.container}>
 
-            {/* {data.status == 'finalizado' &&(
-               <article>
-                    {data.createdFormat}
-               </article>
-            )} */}
-
             <section>
                 <div className={styles.divisor}/>
 
@@ -124,8 +122,8 @@ export function Pedido({data}:PedidosProps){
                                     <td data-label="Produto">{item.produtoNome}</td>
                                     <td data-label="Descrição">{item.produtoDesc}</td>
                                     <td data-label="Quant">{item.qtd}</td>
-                                    <td data-label="Preço">{formatCurrency(item.price, "BRL")}</td>
-                                    <td data-label="Total">{formatCurrency(item.price * item.qtd, "BRL")}</td>
+                                    <td data-label="Preço">{formatCurrency(Number(item.price), "BRL")}</td>
+                                    <td data-label="Total">{formatCurrency(Number(item.price * item.qtd), "BRL")}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -134,7 +132,7 @@ export function Pedido({data}:PedidosProps){
                     
                     <div className={styles.footerMesa}>
                         <span>
-                            <strong>Total do Pedido: {formatCurrency(data.total, "BRL")}</strong>
+                            <strong>Total do Pedido: {formatCurrency(Number(data.total), "BRL")}</strong>
                         </span>
                         {data.status == 'preparando' &&(
                             <button onClick={()=> handleFinalizarPedidio(data)}>Fechar mesa</button>

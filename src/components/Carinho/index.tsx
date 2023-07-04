@@ -11,7 +11,7 @@ import { IoMdAdd, IoMdRemove } from 'react-icons/io';
 export function Carinho({mesaAberta}:any){
 
     const { carinho, RemoveCarinho, setOpenCard, openCard, addQuantCarinho, RevCarinho }:any = useContext(ProductsContext);
-    const { MudaStatusMesa }:any = useContext(TableContext)
+    const { OpenTable, loading }:any = useContext(TableContext)
     // calcula o total dos valore do itens do carinho   
     const totalPrice = carinho.reduce((acc:number, item:any )=>{
         return (item.price * item.qtd ) + acc;
@@ -19,18 +19,16 @@ export function Carinho({mesaAberta}:any){
 
     return(
         <>  
-            {mesaAberta &&(
-                <div className={styles.carinhoContainer}>
-                    <div>
-                        <button onClick={()=> setOpenCard(!openCard)} className={styles.btnCarinho} >
-                            {carinho.length >=1 &&(
-                                <span>{carinho.length}</span>
-                            )}
-                            <BsFillCartFill size={25} color='#000' />
-                        </button>
-                    </div>
+            <div className={styles.carinhoContainer}>
+                <div>
+                    <button onClick={()=> setOpenCard(!openCard)} className={styles.btnCarinho} >
+                        {carinho.length >=1 &&(
+                            <span>{carinho.length}</span>
+                        )}
+                        <BsFillCartFill size={25} color='#000' />
+                    </button>
                 </div>
-            )}
+            </div>
             {openCard &&(
                 <div className={styles.div}>
                     <section className={openCard ? styles.container : styles.activeContainer }>
@@ -62,7 +60,7 @@ export function Carinho({mesaAberta}:any){
                             
                         ))}
                         <span className={styles.totalPrice}>{formatCurrency(totalPrice, 'BRL')}</span>
-                        <button onClick={()=> MudaStatusMesa()} className={styles.btnFecharPedido}>Fechar pedido</button>
+                        <button onClick={()=> OpenTable()} className={styles.btnFecharPedido}> {loading ? 'Enviando pedido...': 'Fechar pedido'} </button>
                     </section>
                     
                 </div>
