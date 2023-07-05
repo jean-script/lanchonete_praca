@@ -86,10 +86,7 @@ export default function AbrirMesa(){
                         </>
 
                 </div>
-
-                <Carinho
-                    mesaAberta={mesaAberta}
-                />
+                <Carinho/>
             </main>
         </>
     )
