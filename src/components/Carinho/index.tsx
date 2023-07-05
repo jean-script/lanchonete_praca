@@ -10,7 +10,7 @@ import { IoMdAdd, IoMdRemove } from 'react-icons/io';
 
 export function Carinho({mesaAberta}:any){
 
-    const { carinho, RemoveCarinho, setOpenCard, openCard, addQuantCarinho, RevCarinho }:any = useContext(ProductsContext);
+    const { carinho, RemoveCarinho, setOpenCard, openCard, addCarinho, RevCarinho }:any = useContext(ProductsContext);
     const { OpenTable, loading }:any = useContext(TableContext)
     // calcula o total dos valore do itens do carinho   
     const totalPrice = carinho.reduce((acc:number, item:any )=>{
@@ -45,7 +45,7 @@ export function Carinho({mesaAberta}:any){
                                         <span>{item.nome}</span>
                                         <span>{formatCurrency(item.price, "BRL")}</span>
                                         <article className={styles.containerQuant}>
-                                            <button className={styles.btnqtd} onClick={()=> addQuantCarinho(item, Number(item.qtd))}><IoMdAdd size={20} color='#000'/></button>
+                                            <button className={styles.btnqtd} onClick={()=> addCarinho(item, Number(item.qtd))}><IoMdAdd size={20} color='#000'/></button>
                                             <span>{item.qtd}</span>
                                             <button className={styles.btnqtd} onClick={()=> RevCarinho(item, Number(item.qtd)) }><IoMdRemove size={20} color='#000' /></button>
                                         </article>

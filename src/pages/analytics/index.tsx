@@ -6,7 +6,6 @@ import { PedidosContext } from '@/contexts/Pedidos'
 
 import styles from './styles.module.scss';
 import { Pedido } from "@/components/Pedido";
-import { AuthContext } from '@/contexts/Auth';
 
 import formatCurrency from '@/ultis/formatCurrecy';
 
@@ -16,25 +15,35 @@ import { format } from 'date-fns';
 export default function Analytics(){
 
     const { pedidos, loadPedidos, setPedidos }:any = useContext(PedidosContext);
-    const { load }:any = useContext(AuthContext);
 
-    const [dataInicial, SetDataInicial] = useState('');
-    const [dataFinal, SetDataFinal] = useState('');
-    const [pedidosSave, setPedidosSave] = useState([]);
-
+    const [mese, setMeses] = useState(['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'])
+    const [mesSelecionado, setMesSelecionado] = useState(0);
+    const [pedidosSave, setPedidosSave]= useState(pedidos || [])
 
     useEffect(()=>{
-        loadPedidos('finalizado');
-        setPedidosSave(pedidos);        
+        loadPedidos('finalizado');  
+        handleFiltrar(mesSelecionado)         
+        
     },[])
     
-    const totalPrice = pedidos.reduce((acc:number, item:any )=>{
+    const totalPrice = pedidosSave.reduce((acc:number, item:any )=>{
         return item.total + acc;
     }, 0);
 
-    function handleFiltrar(){
-        let data = pedidos.filter((ped:any)=> ped.createdFormat == format(new Date(dataInicial), 'dd/MM/yyyy'));
-        setPedidos(data)
+    function handleFiltrar(messele:number){
+        setPedidosSave(pedidos)
+        let data = pedidos.filter((ped:any)=> format( new Date(ped.createdFormat), 'd') == String(messele));
+        setPedidosSave(data)   
+
+        console.log(pedidosSave);
+        
+    }
+
+    function hendleCustomerChange(e:any){
+        setMesSelecionado(e.target.value);
+        console.log(Number(e.target.value) + 1);
+        
+        handleFiltrar(Number(e.target.value) + 1)
     }
 
     return (
@@ -47,11 +56,26 @@ export default function Analytics(){
             <main className={styles.main}>
                <div className={styles.container}>
 
-                    <div className={styles.filtrosInfo}>
-                        {/* <input type='datetime-local' value={dataInicial} onChange={(e)=> SetDataInicial(e.target.value)}/>
-                        <button onClick={()=> handleFiltrar()} >Filtrar</button> */}
-                        { formatCurrency(totalPrice, "BRL")}
-                    </div>
+                    <section className={styles.filtros}>
+                        <label>Escolha o mês: </label>
+                        <select value={mesSelecionado} onChange={hendleCustomerChange}>
+                            {mese.map((mes, index)=>(
+                                <option key={index} value={index}>{mes}</option>
+                            ))}
+                        </select>
+                    </section>
+
+                    <section className={styles.infosVendas}>
+                        <article className={styles.totalValor} > 
+                            <span>Valores vendidos</span>
+                            <h1>{ formatCurrency(totalPrice, "BRL")}</h1>
+                        </article>
+
+                        <article className={styles.totalValor} > 
+                            <span>Vendas</span>
+                            <h1>{ pedidosSave.length }</h1>
+                        </article>
+                    </section>
 
                     {/* mostrando todos os pedidos */}
                     {pedidos.length <=0 ? (
@@ -59,7 +83,7 @@ export default function Analytics(){
                             <span className={styles.sempedidos}>Sem pedidos</span>
                         </>
                     ): ""}
-                    {pedidos.map((pedido:any)=> (
+                    {pedidosSave.map((pedido:any)=> (
                         <Pedido key={pedido.id} data={pedido}/>
                     ))}
                     

@@ -9,14 +9,14 @@ import { PedidosContext } from '@/contexts/Pedidos'
 import styles from './styles.module.scss';
 import { Pedido } from "@/components/Pedido";
 import { AuthContext } from '@/contexts/Auth';
+import { GetServerSideProps } from 'next';
 
 export default function Dashboard(){
 
     const { pedidos, loadPedidos, setPedidos }:any = useContext(PedidosContext);
-    const { load }:any = useContext(AuthContext);
 
     useEffect(()=>{
-        loadPedidos('preparando')   
+        loadPedidos('preparando') 
         
         return ()=> {
             setPedidos([]);
@@ -35,13 +35,14 @@ export default function Dashboard(){
                <div className={styles.container}>
                     <div className={styles.novoPeiddo}>
                         <Link href='/abrirmesa'>
-                            <IoAdd size={25} color="#fff"/>
-                            Novo pedido
+                            <button>
+                                <IoAdd size={25} color="#fff"/>
+                                Novo pedido
+                            </button>
                         </Link>
                     </div>
 
                     {/* mostrando todos os pedidos */}
-
                     {pedidos.length <=0 ? (
                         <>
                             <span className={styles.sempedidos}>Sem pedidos</span>
@@ -55,4 +56,16 @@ export default function Dashboard(){
             </main>
         </>
     )
+}
+
+
+export const getServerSideProps: GetServerSideProps = async () => {
+
+
+    return {
+        props:{
+            
+        }
+    }
+
 }

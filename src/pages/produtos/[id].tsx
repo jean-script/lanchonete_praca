@@ -4,27 +4,48 @@ import { Header  } from '../../components/Header';
 import { IoAdd } from 'react-icons/io5';
 
 import styles from './styles.module.scss';
-import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { db, storge } from '@/services/firebaseConnection';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { toast } from 'react-toastify';
 
-import { useRouter } from 'next/router'
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 
 const listRef = collection(db, "Categorias")
-const listRefItems = collection(db, "items")
 
+export default function Produtos({id, categ}:any){
 
-export default function Produtos({categs}:any){
-
-    const [categorias, setCategorias]:any = useState(categs || []);
+    const [categorias, setCategorias]:any = useState(categ || []);
     const [categoriasSelect, setCategoriasSelect]:any = useState(0);
     const [nome, setNome]:any = useState('');
     const [descricao, setDescricao]:any = useState('');
     const [preco, setPreco]:any = useState('');
     const [imageAvatar, setImageAvatar]:any = useState(null);
     const [avatarUrl, setAvatarUrl]:any = useState(null);
+    const route = useRouter()
+
+
+    useEffect(()=>{
+
+        async function loadProduto(){
+            const docRef = doc(db, "Produtos", id);
+            await getDoc(docRef)
+            .then((snapshot)=> {
+                setNome(snapshot.data()?.nome)
+                setDescricao(snapshot.data()?.descricao)
+                setPreco(snapshot.data()?.price);
+                setAvatarUrl(snapshot.data()?.avatarUrl)
+                
+                let index = categorias.findIndex((item:any) => item.categoria === snapshot.data()?.categoria);
+                setCategoriasSelect(index);        
+            })
+            
+        }
+
+        loadProduto();
+
+    },[])
 
 
     function hendleCustomerChange(e:any){
@@ -32,12 +53,46 @@ export default function Produtos({categs}:any){
         console.log(categorias[e.target.value].categoria);
     }
 
+    async function handleUpload(){
+        const currendtUid = id;
+
+        const uploadRef = ref(storge, `images/${currendtUid}/${imageAvatar.name}`)
+
+        const uploadTask = uploadBytes(uploadRef, imageAvatar)
+        .then((snapshot)=>{
+            getDownloadURL(snapshot.ref).then(async (downLoadURL)=>{
+                let urlFoto = downLoadURL;
+
+                await updateDoc(doc(db,"Produtos", id),{
+                    nome:nome,  
+                    descricao: descricao,
+                    price:preco,
+                    categoria: categorias[Number(categoriasSelect)].categoria,
+                    categoriaid:categorias[Number(categoriasSelect)].id,
+                    avatarUrl: urlFoto
+                })
+                .then((value)=>{
+                    setAvatarUrl(null);
+                    setDescricao('');
+                    setCategoriasSelect(0);
+                    setNome('');
+                    setPreco(0);
+
+                    toast.success('Produto atualizado com sucesso!');
+                    route.push('/abrirmesa');
+
+                })
+            })
+
+        })
+    }
+
     async function handleRegisterProduto(e:ChangeEvent<HTMLInputElement>){
         e.preventDefault();
         
-        if (imageAvatar !== null && nome !== '' && descricao !== '') {
-            await addDoc(collection(db,'Produtos'),{
-                nome:nome,
+        if (imageAvatar === null && nome !== '' && descricao !== '') {
+            await updateDoc(doc(db,"Produtos", id),{
+                nome:nome,  
                 descricao: descricao,
                 price:preco,
                 categoria: categorias[Number(categoriasSelect)].categoria,
@@ -49,27 +104,13 @@ export default function Produtos({categs}:any){
                 setCategoriasSelect(0);
                 setNome('');
                 setPreco(0);
-                const currentUid = value.id;
-                const uploadRef = ref(storge, `images/${currentUid}/${imageAvatar.name}`)
-                const uploadTask = uploadBytes(uploadRef, imageAvatar)
-                .then((snapshot)=>{
-                    getDownloadURL(snapshot.ref).then(async (dowLoadURL)=>{
-                        let urlFoto = dowLoadURL;
-
-                        const docRef = doc(db, 'Produtos',currentUid)
-                        await updateDoc(docRef, {
-                            nome:nome,
-                            descricao: descricao,
-                            price:preco,
-                            categoria: categorias[Number(categoriasSelect)].categoria,
-                            categoriaid:categorias[Number(categoriasSelect)].id,
-                            avatarUrl:urlFoto
-                        })
-                    })
-
-                    toast.success('Novo Produto registrado')
-                })
+                toast.success('Produto atualizado com sucesso!');
+                route.push('/abrirmesa');
+                
             })
+            
+        } else if(imageAvatar !== null && nome !== '' && descricao !== ''){
+            handleUpload();
         }
         
     }
@@ -153,19 +194,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const id = params?.id as string;
 
     let categorias;
-    let product;
-
-    const docRef = doc(db, "items", id);
-    const snapshot = await getDoc(docRef);
-
-    if(snapshot.data() === undefined){
-        return{
-            redirect:{
-                destination:'/dashboard',
-                permanent:false
-            }
-        }
-    }
 
     const querySnapshot = await getDocs(listRef)
     .then((snapshot)=>{
@@ -191,7 +219,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     
     return {
         props:{
-            categs: categorias,
+           id: id,
+           categ: categorias
         }
     }
 }

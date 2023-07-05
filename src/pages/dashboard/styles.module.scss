@@ -36,5 +36,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        button {
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: var(--white);
+        }
     }
 }

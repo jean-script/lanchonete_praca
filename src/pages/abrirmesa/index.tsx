@@ -10,14 +10,14 @@ import { CardProduto } from '@/components/CardProduto';
 import { ProductsContext } from '@/contexts/Products';
 import { TableContext } from '@/contexts/Table'
 import { Carinho } from '@/components/Carinho';
-import { GetServerSideProps } from 'next';
+import { AuthContext } from '@/contexts/Auth';
 
 export default function AbrirMesa(){
 
+    const { user }:any = useContext(AuthContext);
     const { getProducts, products, carinho }:any = useContext(ProductsContext);
-    const { numberMesa, CloseTable,
-            setNumberMesa, cliente, setCliente, 
-            idMesa, OpenTable, mesaAberta, geraNum
+    const { CloseTable, cliente, 
+            idMesa, OpenTable, mesaAberta
         }:any = useContext(TableContext);
 
     useEffect(()=>{
@@ -25,7 +25,6 @@ export default function AbrirMesa(){
             await getProducts('Todos')
         }
         loadProdutos()
-        geraNum()
     }, [])
 
     async function handleAbrirMesa(e:ChangeEvent<HTMLInputElement>){
@@ -48,41 +47,15 @@ export default function AbrirMesa(){
             <main className={styles.main} onSubmit={handleAbrirMesa}>
                 <div className={styles.container}>
 
-                    {/* {mesaAberta &&( */}
                         <CategoriaCards
                             
                         />
-                    {/* )} */}
 
-                    {/* {!mesaAberta &&(
-                        <>
-                            <h1>Abrir novo Pedido</h1>
-                            <form className={styles.forms}>
-
-                                <input 
-                                    type="number" 
-                                    placeholder="Digite o numero da mesa"
-                                    value={numberMesa}
-                                    onChange={ (e)=> setNumberMesa(e.target.value)} 
-                                />
-                                <input 
-                                    type="text" 
-                                    placeholder="(Opcional) Digite o nome do cliente" 
-                                    value={cliente}
-                                    onChange={ (e)=> setCliente(e.target.value) }
-                                />
-                                
-                                <button type="submit">Abrir</button>
-                            </form>
-                        </>
-                    )} */}
-
-                    {/* {mesaAberta &&( */}
                         <>
                             <div className={styles.formsContainer}>
-                                <h1>Monte seu pedido {numberMesa} {cliente &&(
+                                <h1>Monte seu pedido {user.nome &&(
                                     <>
-                                        cliente {cliente}
+                                        {user.nome}
                                     </>
                                 )}</h1>
                                 {carinho.length <=0 &&(
@@ -111,7 +84,6 @@ export default function AbrirMesa(){
 
                             
                         </>
-                    {/* )} */}
 
                 </div>
 

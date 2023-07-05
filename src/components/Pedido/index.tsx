@@ -77,8 +77,10 @@ export function Pedido({data}:PedidosProps){
     }
 
     async function handleFecharMesa(idMesa:any){
-        items.map((item:any)=>{
-            RemoveCarinho(item.id, item.id)
+        items.map(async (item:any)=>{
+            RemoveCarinho(item.id, item.id);
+            await deleteDoc(doc(db, 'items',item.id)).catch((e)=> console.log(e))
+            
         })
 
         await deleteDoc(doc(db, 'Mesa',idMesa))
