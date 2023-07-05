@@ -130,14 +130,7 @@ export default function Produtos(){
 
                         <label className={styles.mack}>
                             <input type="file" accept="image/*" onChange={handleFile}/>
-                            {/* <Image 
-                                src='https://blog.letskuk.com.br/wp-content/uploads/2022/10/lanches-gourmet.jpg' 
-                                alt='hanburguer'
-                                width={600}
-                                height={600}
-                                quality={100}
-                            /> */}
-
+                            
                             { avatarUrl === null ?(
                                 <></>
                             ) : (

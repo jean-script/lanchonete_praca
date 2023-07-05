@@ -14,16 +14,24 @@ import { format } from 'date-fns';
 
 export default function Analytics(){
 
-    const { pedidos, loadPedidos, setPedidos }:any = useContext(PedidosContext);
+    const { pedidos, loadPedidos }:any = useContext(PedidosContext);
 
     const [mese, setMeses] = useState(['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'])
     const [mesSelecionado, setMesSelecionado] = useState(0);
-    const [pedidosSave, setPedidosSave]= useState(pedidos || [])
+    const [diaSelected, setDiaSelected] = useState(1);
+    const [pedidosSave, setPedidosSave]= useState(pedidos || []);
+    const [dias, setDias]:any = useState([]);
+
 
     useEffect(()=>{
         loadPedidos('finalizado');  
-        handleFiltrar(mesSelecionado)         
-        
+        handleFiltrar(mesSelecionado)  
+        let dia = [];
+        for (let index = 1; index <= 31; index++) {
+            dia.push(index)
+        }       
+
+        setDias(dia)        
     },[])
     
     const totalPrice = pedidosSave.reduce((acc:number, item:any )=>{
@@ -33,17 +41,20 @@ export default function Analytics(){
     function handleFiltrar(messele:number){
         setPedidosSave(pedidos)
         let data = pedidos.filter((ped:any)=> format( new Date(ped.createdFormat), 'd') == String(messele));
-        setPedidosSave(data)   
-
-        console.log(pedidosSave);
-        
+        setPedidosSave(data)           
     }
 
-    function hendleCustomerChange(e:any){
+    function handleMesChange(e:any){
         setMesSelecionado(e.target.value);
-        console.log(Number(e.target.value) + 1);
-        
         handleFiltrar(Number(e.target.value) + 1)
+    }
+
+        function handleDayChange(e:any){
+        setPedidosSave(pedidos)
+        setDiaSelected(e.target.value);
+        let data = pedidos.filter((ped:any)=> format( new Date(ped.createdFormat), 'M') == String(e.target.value));
+        setPedidosSave(data)   
+
     }
 
     return (
@@ -58,11 +69,19 @@ export default function Analytics(){
 
                     <section className={styles.filtros}>
                         <label>Escolha o mês: </label>
-                        <select value={mesSelecionado} onChange={hendleCustomerChange}>
+
+                        <select value={mesSelecionado} onChange={handleMesChange}>
                             {mese.map((mes, index)=>(
                                 <option key={index} value={index}>{mes}</option>
                             ))}
                         </select>
+
+                        <select value={diaSelected} onChange={handleDayChange}>
+                            {dias.map((dia:any, index:any)=>(
+                                <option key={index}>{dia}</option>
+                            ))}
+                        </select>
+
                     </section>
 
                     <section className={styles.infosVendas}>

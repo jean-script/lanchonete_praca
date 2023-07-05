@@ -1,8 +1,6 @@
 import { db } from '@/services/firebaseConnection';
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { createContext, useState } from 'react';
-import { toast } from 'react-toastify';
-
 
 type CardProductsProps = {
     nome:string,
@@ -38,7 +36,7 @@ function ProductsProvider({children}:any){
         setCarinho(cart);
     }
 
-    async function RevCarinho(item:CardProductsProps,qtd:number){
+    async function RevCarinho(item:CardProductsProps){
         let id = item.id;
 
         const cart = carinho.filter((item:any)=> item.id == id)

@@ -8,7 +8,7 @@ import formatCurrency from '@/ultis/formatCurrecy';
 import { TableContext } from '@/contexts/Table';
 import { IoMdAdd, IoMdRemove } from 'react-icons/io';
 
-export function Carinho({mesaAberta}:any){
+export function Carinho(){
 
     const { carinho, RemoveCarinho, setOpenCard, openCard, addCarinho, RevCarinho }:any = useContext(ProductsContext);
     const { OpenTable, loading }:any = useContext(TableContext)
@@ -34,7 +34,7 @@ export function Carinho({mesaAberta}:any){
                     <section className={openCard ? styles.container : styles.activeContainer }>
                         {carinho.map((item:any)=>(
                             <>
-                                <div key={item.id} className={openCard ? styles.carinho : styles.activeCarinho}>
+                                <div key={item} className={openCard ? styles.carinho : styles.activeCarinho}>
                                     <Image 
                                         src={item.image} 
                                         alt={item.nome}

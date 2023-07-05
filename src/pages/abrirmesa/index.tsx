@@ -16,7 +16,7 @@ export default function AbrirMesa(){
 
     const { user }:any = useContext(AuthContext);
     const { getProducts, products, carinho }:any = useContext(ProductsContext);
-    const { CloseTable, cliente, 
+    const { CloseTable, 
             idMesa, OpenTable, mesaAberta
         }:any = useContext(TableContext);
 

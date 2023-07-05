@@ -8,12 +8,13 @@ import { PedidosContext } from '@/contexts/Pedidos'
 
 import styles from './styles.module.scss';
 import { Pedido } from "@/components/Pedido";
-import { AuthContext } from '@/contexts/Auth';
 import { GetServerSideProps } from 'next';
+import { TableContext } from '@/contexts/Table';
 
 export default function Dashboard(){
 
     const { pedidos, loadPedidos, setPedidos }:any = useContext(PedidosContext);
+    const { geraNum }:any = useContext(TableContext);
 
     useEffect(()=>{
         loadPedidos('preparando') 
@@ -35,7 +36,7 @@ export default function Dashboard(){
                <div className={styles.container}>
                     <div className={styles.novoPeiddo}>
                         <Link href='/abrirmesa'>
-                            <button>
+                            <button onClick={()=> geraNum()}>
                                 <IoAdd size={25} color="#fff"/>
                                 Novo pedido
                             </button>

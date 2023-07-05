@@ -5,12 +5,6 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
-type PropsCreateUser = {
-    nome:string,
-    email:string,
-    password:string
-}
-
 export const AuthContext = createContext({});
 
 function AuthProvider({ children }:any){
@@ -48,7 +42,7 @@ function AuthProvider({ children }:any){
                 nome:docSnap.data().nome,
                 email:value.user.email,
                 avatarUrl:docSnap.data().avatarUrl,
-                admin: docSnap.data()?.admin
+                admin: docSnap.data()?.admin,
             }
 
             storgeUser(data);
@@ -81,7 +75,7 @@ function AuthProvider({ children }:any){
                     nome:nome,
                     email:value.user.email,
                     avatarUrl:null,
-                    admin: false
+                    admin: false,
                 };
 
                 setUSer(data);

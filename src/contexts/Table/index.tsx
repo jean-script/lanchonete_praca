@@ -1,10 +1,11 @@
 import { createContext, useState, useContext } from 'react'
 import { db } from '@/services/firebaseConnection';
-import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { ProductsContext } from '../Products';
 import { PedidosContext } from '../Pedidos'
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../Auth';
 
 export const TableContext = createContext({});
 
@@ -26,22 +27,23 @@ function TableProvider({children}:any){
     
     const { setOpenCard, carinho, setCarinho }:any = useContext(ProductsContext);
     const { pedidos, setPedidos }:any = useContext(PedidosContext);
+    const { user }:any = useContext(AuthContext);
 
     const router = useRouter()
     const [numberMesa, setNumberMesa] = useState('');
     const [loading, setLoading] = useState(false)
 
     function geraNum(){
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve)=>{
             resolve(
-                setNumberMesa(String(Math.floor(Math.random() * 100)))                
+                setNumberMesa(String(Math.floor(Math.random() * 1000)))                
             )
         })
     }
 
     async function OpenTable() {
         setLoading(true)
-        setNumberMesa(String(Math.floor(Math.random() * 100)))
+        setNumberMesa(String(Math.floor(Math.random() * 1000)))
 
         if(carinho.length <=0) {
             toast.warn('Adicione items ao carinho para fechar o pedido!')
@@ -54,7 +56,7 @@ function TableProvider({children}:any){
         
         await addDoc(collection(db, 'Mesa'),{
             number: numberMesa,
-            cliente: null,
+            userId:user.uid,
             status: 'preparando',
             created: new Date(),
             updateAd: new Date(),
@@ -80,7 +82,7 @@ function TableProvider({children}:any){
     }
         
 
-    async function CloseTable(id:string){
+    async function CloseTable(){
         setNumberMesa('');
         setOpenCard(false)
         setCarinho([]);
@@ -95,7 +97,7 @@ function TableProvider({children}:any){
         
         await updateDoc(doc(db, 'Mesa',data.id),{
             number: data.numero,
-            cliente: data.cliente,
+            userId:user.uid,
             status: 'finalizado',
             total:data.total,
             updateAd: new Date()

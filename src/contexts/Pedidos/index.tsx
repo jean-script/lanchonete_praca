@@ -1,7 +1,8 @@
-import { db } from '@/services/firebaseConnection';
+import { createContext, useState,useContext } from 'react'
 import { collection,onSnapshot, orderBy, query, where } from 'firebase/firestore';
-import { createContext, useState } from 'react'
+import { db } from '@/services/firebaseConnection';
 import { format } from 'date-fns';
+import { AuthContext } from '../Auth';
 
 export const PedidosContext = createContext({});
 
@@ -10,11 +11,17 @@ const listRef = collection(db, "Mesa");
 function PedidosProvider({children}:any){
 
     const [pedidos, setPedidos] = useState([]);
+    const { user }:any = useContext(AuthContext);
 
     async function loadPedidos(status:string){
-        const q = query(listRef, orderBy('created','desc'),where("status","==",status))
-
-        const unsub = onSnapshot(q, (snapshot)=>{
+        let q;
+        if(user?.admin){
+            q = query(listRef, orderBy('created','desc'),where("status","==",status))
+        } else {
+            q = query(listRef, orderBy('created','desc'),where("status","==",status), where("userId","==",user.uid))
+        }
+        
+        const unsub = onSnapshot(q, (snapshot:any)=>{
             let lista:any = [];
             snapshot.forEach((doc:any) => {
                 lista.push({
