@@ -9,18 +9,19 @@ const listRef = collection(db, "Categorias");
 
 export function CategoriaCards(){
 
+    const { getProducts }:any = useContext(ProductsContext);
     const [categorias, setCategorias] = useState([]);
     const [categoriaSelected, setCategoriaSelected] = useState('Todos')
     const [ Products, setProducts] = useState([]);
-    const { getProducts }:any = useContext(ProductsContext);
+    const [loading, setLoading]= useState(true);
 
 
     useEffect(()=>{
         async function LoadCategorias(){
+            setLoading(true)
             const querySnapshot = await getDocs(listRef)
             .then((snapshot)=>{
                 let lista:any = [];
-
                 snapshot.forEach((doc)=>{
                     lista.push({
                         id:doc.id,
@@ -30,15 +31,14 @@ export function CategoriaCards(){
                 if(snapshot.size === 0){
                     return;
                 }
-
-                setCategorias(lista);                
+                setCategorias(lista);    
+                setLoading(false)            
             })
             .catch((e)=>{
                 console.log(e);
-                
+                setLoading(false)
             })
         }
-
         LoadCategorias();
     },[])
 
@@ -52,6 +52,11 @@ export function CategoriaCards(){
     return (
         <section className={styles.container}>
             <div>
+                {loading &&(
+                    <>
+                        Carregando...
+                    </>
+                )}
                 <button onClick={()=> handleFilter('Todos', 'Todos')} className={'Todos' === categoriaSelected ? styles.activeBtn : ''}>Todos</button>
 
                 {categorias.map((item:any)=>(

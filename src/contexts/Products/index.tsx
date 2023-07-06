@@ -24,6 +24,7 @@ function ProductsProvider({children}:any){
     const [qtd, setQtd] = useState(1);
     // state que controla o menu de carinho, aberto ou fechado
     const [openCard, setOpenCard] = useState(false);
+    const [loading, setLoading]= useState(false);
 
    
     function addQtdProduct(){
@@ -77,7 +78,7 @@ function ProductsProvider({children}:any){
     
     // função que filtra os produtos da tela de abrir mesa 
     async function loadProdutos(busca:string){
-
+        setLoading(true)
         if(busca === 'Todos'){
             const querySnapshot = await getDocs(listRef)
             .then((snapshot)=>{
@@ -94,6 +95,7 @@ function ProductsProvider({children}:any){
                     })
                 })
                 setProducts(lista);
+                setLoading(false)
                 
             })
         } else {
@@ -124,6 +126,7 @@ function ProductsProvider({children}:any){
             });
             
             setProducts(lista);
+            setLoading(false)
         }
     }
 
@@ -146,7 +149,8 @@ function ProductsProvider({children}:any){
                 openCard,
                 addQtdProduct,
                 RevCarinho,
-                qtd
+                qtd,
+                loading
             }}
         >
             {children}

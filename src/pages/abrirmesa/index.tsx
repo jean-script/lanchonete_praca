@@ -17,7 +17,7 @@ export default function AbrirMesa(){
     const { user }:any = useContext(AuthContext);
     const { getProducts, products, carinho }:any = useContext(ProductsContext);
     const { CloseTable, 
-            idMesa, OpenTable, mesaAberta
+            idMesa, OpenTable, loading
         }:any = useContext(TableContext);
 
     useEffect(()=>{
@@ -66,7 +66,11 @@ export default function AbrirMesa(){
                             </div>
 
                             <div className={styles.cardProducts}>
-
+                                {loading &&(
+                                    <>
+                                        Carregando...
+                                    </>
+                                )}
                                 {products.map((item:any)=>(
                                     <CardProduto 
                                         key={item.id}
