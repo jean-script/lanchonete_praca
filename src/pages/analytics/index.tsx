@@ -14,7 +14,7 @@ import { format } from 'date-fns';
 
 export default function Analytics(){
 
-    const { pedidos, loadPedidos }:any = useContext(PedidosContext);
+    const { pedidos, loadPedidos, setPedidos, loading }:any = useContext(PedidosContext);
 
     const [mese, setMeses] = useState(['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'])
     const [mesSelecionado, setMesSelecionado] = useState(0);
@@ -31,7 +31,13 @@ export default function Analytics(){
             dia.push(index)
         }       
 
-        setDias(dia)        
+        setDias(dia);
+        setPedidosSave(pedidos) 
+        
+        return ()=> {
+            setDias([]);
+            setPedidos([])
+        }
     },[])
     
     const totalPrice = pedidosSave.reduce((acc:number, item:any )=>{
@@ -83,16 +89,28 @@ export default function Analytics(){
                         </select>
 
                     </section>
-
+                            
                     <section className={styles.infosVendas}>
                         <article className={styles.totalValor} > 
                             <span>Valores vendidos</span>
-                            <h1>{ formatCurrency(totalPrice, "BRL")}</h1>
+                            {loading ? (
+                                <>
+                                    Carregando...
+                                </>
+                            ): (
+                                <h1>{ formatCurrency(totalPrice, "BRL")}</h1>
+                            )}
                         </article>
 
                         <article className={styles.totalValor} > 
                             <span>Vendas</span>
-                            <h1>{ pedidosSave.length }</h1>
+                            {loading ? (
+                                <>
+                                    Carregando...
+                                </>
+                            ):(
+                                <h1>{ pedidosSave.length }</h1>
+                            )}
                         </article>
                     </section>
 

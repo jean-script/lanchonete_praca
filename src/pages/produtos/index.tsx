@@ -27,7 +27,6 @@ export default function Produtos(){
             const querySnapshot = await getDocs(listRef)
             .then((snapshot)=>{
                 let lista:any = [];
-
                 snapshot.forEach((doc)=>{
                     lista.push({
                         id:doc.id,
@@ -37,19 +36,18 @@ export default function Produtos(){
                 if(snapshot.size === 0){
                     return;
                 }
-
                 setCategorias(lista);
-                
             })
             .catch((e)=>{
                 console.log(e);
-                
             })
-
-
         }
 
         LoadCategorias();
+
+        return ()=>{
+            setCategorias([]);
+        }
     },[])
 
     function hendleCustomerChange(e:any){

@@ -45,6 +45,12 @@ export default function Produtos({id, categ}:any){
 
         loadProduto();
 
+        return ()=>{
+            setNome('');
+            setDescricao('');
+            setPreco('');
+        }
+
     },[])
 
 

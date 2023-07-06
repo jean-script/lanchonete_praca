@@ -24,7 +24,7 @@ function ProductsProvider({children}:any){
     const [qtd, setQtd] = useState(1);
     // state que controla o menu de carinho, aberto ou fechado
     const [openCard, setOpenCard] = useState(false);
-    const [loading, setLoading]= useState(false);
+    const [loading, setLoading]= useState(true);
 
    
     function addQtdProduct(){

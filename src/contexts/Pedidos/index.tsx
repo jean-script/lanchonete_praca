@@ -11,9 +11,11 @@ const listRef = collection(db, "Mesa");
 function PedidosProvider({children}:any){
 
     const [pedidos, setPedidos] = useState([]);
+    const [loading, setLoading] = useState(true);
     const { user }:any = useContext(AuthContext);
 
     async function loadPedidos(status:string){
+        setLoading(true)
         let q;
         if(user?.admin){
             q = query(listRef, orderBy('created','desc'),where("status","==",status))
@@ -36,6 +38,7 @@ function PedidosProvider({children}:any){
             });
 
             setPedidos(lista);
+            setLoading(false)
         })
         
     }
@@ -45,7 +48,8 @@ function PedidosProvider({children}:any){
             value={{
                 pedidos,
                 setPedidos,
-                loadPedidos
+                loadPedidos,
+                loading
             }}
         >
             {children}

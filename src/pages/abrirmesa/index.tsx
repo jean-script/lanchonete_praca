@@ -15,7 +15,7 @@ import { AuthContext } from '@/contexts/Auth';
 export default function AbrirMesa(){
 
     const { user }:any = useContext(AuthContext);
-    const { getProducts, products, carinho }:any = useContext(ProductsContext);
+    const { getProducts, products, carinho, setProducts }:any = useContext(ProductsContext);
     const { CloseTable, 
             idMesa, OpenTable, loading
         }:any = useContext(TableContext);
@@ -25,6 +25,10 @@ export default function AbrirMesa(){
             await getProducts('Todos')
         }
         loadProdutos()
+
+        return ()=> {
+            setProducts([]);
+        }
     }, [])
 
     async function handleAbrirMesa(e:ChangeEvent<HTMLInputElement>){
@@ -66,7 +70,7 @@ export default function AbrirMesa(){
                             </div>
 
                             <div className={styles.cardProducts}>
-                                {loading &&(
+                                {loading && (
                                     <>
                                         Carregando...
                                     </>

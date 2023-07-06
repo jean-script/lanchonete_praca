@@ -34,11 +34,7 @@ function TableProvider({children}:any){
     const [loading, setLoading] = useState(false)
 
     function geraNum(){
-        return new Promise((resolve)=>{
-            resolve(
-                setNumberMesa(String(Math.floor(Math.random() * 1000)))                
-            )
-        })
+        setNumberMesa(String(Math.floor(Math.random() * 1000)))                
     }
 
     async function OpenTable() {
