@@ -43,7 +43,7 @@ export function Carinho(){
                                     />
                                     <div>
                                         <span>{item.nome}</span>
-                                        <span>{formatCurrency(item.price, "BRL")}</span>
+                                        <span>{formatCurrency(Number(item.price), 'BRL')}</span>
                                         <article className={styles.containerQuant}>
                                             <button className={styles.btnqtd} onClick={()=> addCarinho(item, Number(item.qtd))}><IoMdAdd size={20} color='#000'/></button>
                                             <span>{item.qtd}</span>
