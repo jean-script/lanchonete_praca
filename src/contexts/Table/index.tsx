@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react'
+import { createContext, useState, useContext, ReactNode } from 'react'
 import { db } from '@/services/firebaseConnection';
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { ProductsContext } from '../Products';
@@ -12,17 +12,28 @@ export const TableContext = createContext({});
 const listRefItems = collection(db, "items");
 
 interface PedidosProps {
-    
-    id: string,
-    cliente:string,
-    numero: string,
-    status: string,
-    total: number,
-    created:Date ,  
-    
+    id: string;
+    cliente:string;
+    numero: string;
+    status: string;
+    total: number;
+    created:Date ;
 }
 
-function TableProvider({children}:any){
+interface TableProviderProps {
+    children: ReactNode
+}
+
+interface ItemsProps {
+    id: string,
+    nome: string,
+    descricao: string,
+    price: number,
+    qtd: number,
+}
+
+
+function TableProvider({children}:TableProviderProps){
 
     
     const { setOpenCard, carinho, setCarinho }:any = useContext(ProductsContext);
@@ -46,7 +57,7 @@ function TableProvider({children}:any){
             return;
         }
 
-        const totalPrice = carinho.reduce((acc:number, item:any )=>{
+        const totalPrice = carinho.reduce((acc:number, item:ItemsProps )=>{
             return (item.price * item.qtd ) + acc;
         }, 0);
         
@@ -59,7 +70,7 @@ function TableProvider({children}:any){
             total: totalPrice
         })
         .then((value)=>{
-            carinho.map(async (item:any)=>{
+            carinho.map(async (item:ItemsProps)=>{
                 await addDoc(listRefItems, {
                     mesaId: value.id,
                     produto: item.id,

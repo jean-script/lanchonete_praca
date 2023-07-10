@@ -1,6 +1,6 @@
 import { db } from '@/services/firebaseConnection';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
-import { createContext, useState } from 'react';
+import { ReactNode, createContext, useState } from 'react';
 
 type CardProductsProps = {
     nome:string,
@@ -13,13 +13,17 @@ type CardProductsProps = {
     idItem:string
 }
 
+interface ProductsProviderProps {
+    children: ReactNode
+}
+
 export const ProductsContext = createContext({});
 
 const listRef = collection(db, "Produtos");
 
-function ProductsProvider({children}:any){
+function ProductsProvider({children}:ProductsProviderProps){
     const [products, setProducts] = useState([]);
-    const [carinho, setCarinho]:any= useState([]);
+    const [carinho, setCarinho]:any = useState([]);
     // quantidade de cada item
     const [qtd, setQtd] = useState(1);
     // state que controla o menu de carinho, aberto ou fechado

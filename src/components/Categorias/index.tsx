@@ -45,7 +45,6 @@ export function CategoriaCards(){
     async function handleFilter(id:any, categoria:string){
         setCategoriaSelected(categoria);
         let data = await getProducts(id)
-        setProducts(data);
     }
 
 

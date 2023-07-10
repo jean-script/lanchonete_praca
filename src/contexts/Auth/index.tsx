@@ -1,13 +1,18 @@
-import { createContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 import { auth, db } from '@/services/firebaseConnection';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
+
+interface AuthProviderProps {
+    children: ReactNode
+}
+
 export const AuthContext = createContext({});
 
-function AuthProvider({ children }:any){
+function AuthProvider({ children }:AuthProviderProps){
 
     const [user, setUSer]:any = useState({});
     const [load, setLoad] = useState(false);
