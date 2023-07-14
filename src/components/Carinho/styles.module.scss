@@ -111,9 +111,9 @@
             background-color: transparent;
             border: none;
             color: var(--white);
-            position: absolute;
-            top: 60%;
-            right: 10%;
+            position: fixed;
+            top: 145px;
+            right: 20px;
             z-index: 98;
             
             span {

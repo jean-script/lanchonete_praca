@@ -61,7 +61,16 @@ export function CategoriaCards(){
                         <button onClick={()=> handleFilter('Todos', 'Todos')} className={'Todos' === categoriaSelected ? styles.activeBtn : ''}>Todos</button>
         
                         {categorias.map((item:any)=>(
-                            <button key={item.id} className={item.categoria === categoriaSelected ? styles.activeBtn : ''} onClick={()=> handleFilter(item.id, item.categoria)}><span>{item.categoria}</span></button>
+                            <button 
+                                key={item.id} 
+                                className={
+                                    item.categoria === categoriaSelected 
+                                    ? styles.activeBtn 
+                                    : ''
+                                } 
+                                onClick={()=> handleFilter(item.id, item.categoria)}>
+                                    <span>{item.categoria}</span>
+                            </button>
                         ))}
                     </>
                 )}

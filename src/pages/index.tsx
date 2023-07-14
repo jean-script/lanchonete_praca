@@ -9,6 +9,7 @@ import { RiLockPasswordFill } from 'react-icons/ri';
 
 import { AuthContext } from '@/contexts/Auth';
 
+
 export default function Home() {
 
   const [email, setEmail] = useState('');
