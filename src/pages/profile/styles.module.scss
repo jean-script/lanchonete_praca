@@ -83,6 +83,7 @@
 .buttonLogout {
     margin-top: 40px;
     max-width: 220px;
+    min-width: 220px;
     padding: 10px 0;
     background-color: transparent;
     border: 1px solid var(--gray-100);
@@ -95,5 +96,9 @@
         width: cal(80% -70px);
         margin-left: 70px;
         padding: 30px 20px;
+    }
+
+    .container {
+        align-items: center;
     }
 }
