@@ -93,7 +93,11 @@
 
 }
 
-
+@media screen  and (max-width: 910px)  {
+    .cardProducts {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
 
 @media screen  and (max-width: 850px) {
     .main {

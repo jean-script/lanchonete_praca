@@ -18,6 +18,7 @@ type CardProductsProps = {
     image:any,
     id:string,
     mesaId:string,
+    categoria: string
 }
 
 export function CardProduto(data:CardProductsProps){
@@ -41,7 +42,14 @@ export function CardProduto(data:CardProductsProps){
 
     return(
         <article className={styles.cardProduct}>
-            <Image src={data.image} alt='foto do lanche' width={200} height={200}/>
+            <Image 
+                src={data.image} 
+                alt='foto do lanche' 
+                width={200} 
+                height={200}
+                quality={100}
+                
+            />
             <p>{data.descricao}</p>
 
             {user.admin &&(

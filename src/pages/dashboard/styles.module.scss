@@ -2,7 +2,9 @@
 
 .main {
     width: cal(80% -200px);
+    height: 100vh;
     margin-left: 210px;
+    
     padding: 30px 20px;
     transition: all 0.3s;
 }
@@ -10,12 +12,17 @@
 .container {
     width: 100%;
     max-width: 1120px;
-    margin: 0 auto;
+    height: 100%;
 }
 
 .sempedidos {
     color: #000;
-    font-size: 20px;
+    font-size: 30px;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .novoPeiddo {

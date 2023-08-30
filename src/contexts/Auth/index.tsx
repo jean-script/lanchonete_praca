@@ -1,9 +1,10 @@
 import { ReactNode, createContext, useEffect, useState } from 'react';
-import { auth, db } from '@/services/firebaseConnection';
+import { auth, db, storge } from '@/services/firebaseConnection';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 
 interface AuthProviderProps {
@@ -26,7 +27,8 @@ function AuthProvider({ children }:AuthProviderProps){
             setUSer(JSON.parse(userStorge))
             setLoad(false);
             router.push('/dashboard')
-        } else {
+        } 
+        else {
             setLoad(false);
             router.push('/')
         }
@@ -61,6 +63,35 @@ function AuthProvider({ children }:AuthProviderProps){
             toast.error("Erro ao fazer login")
             console.log(e);
         })
+    }
+
+    async function UpdateUser(userId: string, nome: string, nomeImage: any ) {
+       
+        const uploadRef = ref(storge, `images/${userId}/${nomeImage}`);
+        const uploadTask = uploadBytes(uploadRef, nomeImage)
+            .then((snapshot)=> {
+                getDownloadURL(snapshot.ref).then(async (downLoadURL)=> {
+                    let FotoUrl = downLoadURL;  
+
+                    await updateDoc(doc(db,"Users", userId), {
+                        nome: nome,
+                        avatarUrl: FotoUrl,
+                    })
+                    .then(()=> {
+                        let data = {
+                            uid:user.uid,
+                            nome:user.nome,
+                            email:user.email,
+                            avatarUrl:FotoUrl,
+                            admin: user.admin,
+                        }
+                        
+                        storgeUser(data);
+                        toast.success('Dados atualizados com sucesso!');
+                    });
+
+                })
+            })
     }
 
     async function CreateUser(nome:string, email:string, password: string){
@@ -115,7 +146,9 @@ function AuthProvider({ children }:AuthProviderProps){
                 CreateUser,
                 Login,
                 Logout,
-                load
+                load,
+                UpdateUser,
+                storgeUser
             }}
         >
             {children}

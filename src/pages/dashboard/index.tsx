@@ -10,6 +10,7 @@ import { Pedido } from "@/components/Pedido";
 import { GetServerSideProps } from 'next';
 import { TableContext } from '@/contexts/Table';
 import HeaderVertical from '@/components/HeaderVertical';
+import { MdOutlineRemoveShoppingCart } from 'react-icons/md';
 
 export default function Dashboard(){
 
@@ -23,7 +24,6 @@ export default function Dashboard(){
             setPedidos([]);
         }
     },[])
-
 
     return (
         <>
@@ -46,7 +46,12 @@ export default function Dashboard(){
                     {/* mostrando todos os pedidos */}
                     {pedidos.length <=0 ? (
                         <>
-                            <span className={styles.sempedidos}>Sem pedidos</span>
+                            <span className={styles.sempedidos}>
+                                <span>
+                                    Sem pedidos
+                                </span> 
+                                <MdOutlineRemoveShoppingCart size={60}/>
+                            </span>
                         </>
                     ): ""}
                     {pedidos.map((pedido:any)=> (

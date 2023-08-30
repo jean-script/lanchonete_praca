@@ -30,12 +30,12 @@ interface ItemsProps {
     descricao: string,
     price: number,
     qtd: number,
+    categoria: string
 }
 
 
 function TableProvider({children}:TableProviderProps){
 
-    
     const { setOpenCard, carinho, setCarinho }:any = useContext(ProductsContext);
     const { pedidos, setPedidos }:any = useContext(PedidosContext);
     const { user }:any = useContext(AuthContext);
@@ -78,6 +78,7 @@ function TableProvider({children}:TableProviderProps){
                     produtoDesc: item.descricao,
                     price: item.price,
                     qtd:item.qtd,
+                    category: item.categoria,
                 })
             })
             setCarinho([]);

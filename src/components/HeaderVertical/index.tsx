@@ -2,20 +2,20 @@ import { useContext } from 'react';
 import { AuthContext } from '@/contexts/Auth';
 
 import Link from 'next/link';
+import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 
 import { FaChartPie, FaPlusSquare, FaUserPlus } from 'react-icons/fa';
 import { AiFillHome } from 'react-icons/ai';
 import { BiCategory } from 'react-icons/bi';
+import { IoMdAddCircle } from 'react-icons/io';
 
 import Image from 'next/image';
 import AvatarImage from '@/assets/avatar.png'; 
 
 import styles from './styles.module.scss';
-import { IoAdd } from 'react-icons/io5';
+
 import { TableContext } from '@/contexts/Table';
-import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
-import { IoMdAddCircle } from 'react-icons/io';
 
 export default function HeaderVertical(){
 
@@ -79,11 +79,3 @@ export default function HeaderVertical(){
     );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    
-    return {
-        props: {
-
-        }
-    }
-}

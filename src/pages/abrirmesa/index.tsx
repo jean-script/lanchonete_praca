@@ -1,6 +1,5 @@
 import { ChangeEvent, useEffect, useContext } from 'react'
 import Head from "next/head";
-import { Header } from '../../components/Header'
 import { BsFillTrashFill } from 'react-icons/bs'
 
 import styles from './styles.module.scss';
@@ -85,15 +84,11 @@ export default function AbrirMesa(){
                                         price={item.price}
                                         id={item.id}
                                         mesaId={idMesa}
-                                        
+                                        categoria={item.categoria}
                                     />
                                 ))}
-                            </div>
-
-
-                            
+                            </div> 
                         </>
-
                 </div>
                 <Carinho/>
             </main>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 import image from '@/../public/lanchonete.jpg';
 
-import { FaUser, FaRegUser } from 'react-icons/fa';
+import { FaRegUser } from 'react-icons/fa';
 import { RiLockPasswordFill } from 'react-icons/ri';
 
 import { AuthContext } from '@/contexts/Auth';

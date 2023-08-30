@@ -45,7 +45,8 @@ export default function CreateUser(){
 
                     <Image 
                         alt='Image de perfil'
-                        src={ user.avatarUrl ? user.avatarUrl : AvatarImage}
+                        src={AvatarImage}
+                      
                     />
 
                     <form className={styles.forms} >

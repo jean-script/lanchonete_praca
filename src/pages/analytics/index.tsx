@@ -9,6 +9,8 @@ import { Pedido } from "@/components/Pedido";
 
 import formatCurrency from '@/ultis/formatCurrecy';
 
+import { AreaChart } from '@/components/AreaChart';
+
 import { format } from 'date-fns';
 import HeaderVertical from '@/components/HeaderVertical';
 
@@ -23,7 +25,6 @@ export default function Analytics(){
     const [pedidosSave, setPedidosSave]= useState(pedidos || []);
     const [dias, setDias]:any = useState([]);
 
-
     useEffect(()=>{
         loadPedidos('finalizado');  
         handleFiltrar(mesSelecionado)  
@@ -35,11 +36,11 @@ export default function Analytics(){
         setDias(dia);
         setPedidosSave(pedidos) 
         
-        return ()=> {
+        return () => {
             setDias([]);
             setPedidos([])
         }
-    },[])
+    },[]);
     
     const totalPrice = pedidosSave.reduce((acc:number, item:any )=>{
         return item.total + acc;
@@ -60,7 +61,7 @@ export default function Analytics(){
         setPedidosSave(pedidos)
         setDiaSelected(e.target.value);
         let data = pedidos.filter((ped:any)=> format( new Date(ped.createdFormat), 'M') == String(e.target.value));
-        setPedidosSave(data)   
+        setPedidosSave(data);   
 
     }
 
@@ -124,6 +125,14 @@ export default function Analytics(){
                     {pedidosSave.map((pedido:any)=> (
                         <Pedido key={pedido.id} data={pedido}/>
                     ))}
+                    <article className={styles.chartArea}>
+                        <div>
+                            <AreaChart/>
+                        </div>
+                        <div>
+                            <AreaChart/>
+                        </div>
+                    </article>
                     
                 </div>
             </main>
