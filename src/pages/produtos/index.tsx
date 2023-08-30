@@ -8,6 +8,7 @@ import { addDoc, collection, doc, getDocs, updateDoc } from 'firebase/firestore'
 import { db, storge } from '@/services/firebaseConnection';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { toast } from 'react-toastify';
+import HeaderVertical from '@/components/HeaderVertical';
 
 const listRef = collection(db, "Categorias")
 
@@ -118,7 +119,7 @@ export default function Produtos(){
                 <title>Cadastrar Produto - Lanchonete da praça</title>
             </Head>
 
-            <Header/>
+            <HeaderVertical/>
 
             <main className={styles.main}>
                 <div className={styles.container} onSubmit={handleRegisterProduto}>       

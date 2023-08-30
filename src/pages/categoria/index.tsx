@@ -5,6 +5,7 @@ import styles from './styles.module.scss';
 import { ChangeEvent, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/services/firebaseConnection";
+import HeaderVertical from "@/components/HeaderVertical";
 
 export default function Categoria(){
 
@@ -30,7 +31,7 @@ export default function Categoria(){
                 <title>Registrar categoria - Lanchonete da praça</title>
             </Head>
 
-            <Header/>
+            <HeaderVertical/>
 
             <main className={styles.main}>
                 <div className={styles.container} onSubmit={handleCreateCategoria}>

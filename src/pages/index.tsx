@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 import image from '@/../public/lanchonete.jpg';
 
-import { FaUser } from 'react-icons/fa';
+import { FaUser, FaRegUser } from 'react-icons/fa';
 import { RiLockPasswordFill } from 'react-icons/ri';
 
 import { AuthContext } from '@/contexts/Auth';
@@ -44,7 +44,7 @@ export default function Home() {
           <form className={styles.forms}>
 
             <div>
-              <FaUser size={25} color='#777774' />
+              <FaRegUser size={25} color='#777774' />
               <input type='email' placeholder='Digite seu email' value={email} onChange={(e)=> setEmail(e.target.value)}/>
             </div>
             <div>

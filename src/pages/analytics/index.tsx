@@ -10,6 +10,7 @@ import { Pedido } from "@/components/Pedido";
 import formatCurrency from '@/ultis/formatCurrecy';
 
 import { format } from 'date-fns';
+import HeaderVertical from '@/components/HeaderVertical';
 
 
 export default function Analytics(){
@@ -69,7 +70,7 @@ export default function Analytics(){
                 <title>Analytics de pedidos - lanchonete Praça</title>
             </Head>
 
-            <Header/>
+            <HeaderVertical/>
             <main className={styles.main}>
                <div className={styles.container}>
 

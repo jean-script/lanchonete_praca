@@ -1,13 +1,11 @@
 
 
 .main {
-    width: 100%;
-    // height: calc(100vh - 70px);
-    
-    display: block;
-    position: relative;
-    padding-bottom: 20px;
+    width: cal(80% -200px);
+    margin-left: 210px;
+    padding: 0 20px;
 }
+
 
 .container {
     width: 100%;
@@ -17,7 +15,6 @@
     align-items: center;
     justify-content: center;
     color: #000;
-
 }
 
 .formsContainer {

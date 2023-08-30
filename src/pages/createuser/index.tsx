@@ -1,17 +1,19 @@
 import { ChangeEvent, useContext, useState } from 'react'
 import Head from "next/head";
 import Image from 'next/image';
-import image from '@/../public/lanchonete.jpg'
 import styles from './styles.module.scss';
-import { Header } from "@/components/Header";
 import { AuthContext } from '@/contexts/Auth'
+import HeaderVertical from '@/components/HeaderVertical';
+
+
+import AvatarImage from '@/assets/avatar.png'; 
 
 export default function CreateUser(){
     const [nome,setNome] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { CreateUser,  }:any = useContext(AuthContext);
+    const { CreateUser, user  }:any = useContext(AuthContext);
 
     async function handleRegisterUser(event:ChangeEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -35,19 +37,25 @@ export default function CreateUser(){
                 <title>Register Users - Lanchonete da Praça</title>
             </Head>
 
-            <Header/>
+            <HeaderVertical/>
 
             <main className={styles.main}>
+                
                 <section className={styles.container} onSubmit={handleRegisterUser}>
-                <Image src={image} alt='image de lanche' />
-                <form className={styles.forms} >
-                    <input type='text' placeholder='Digite o nome' value={nome} onChange={(e)=> setNome(e.target.value)}/>
-                    <input type='email' placeholder='Digite o email'value={email} onChange={(e)=> setEmail(e.target.value)}/>
-                    <input type='password' placeholder='Digite a senha' value={password} onChange={(e)=> setPassword(e.target.value)}/>
-                            
-                    <button type='submit'>Cadastrar</button>
 
-                </form>
+                    <Image 
+                        alt='Image de perfil'
+                        src={ user.avatarUrl ? user.avatarUrl : AvatarImage}
+                    />
+
+                    <form className={styles.forms} >
+                        <input type='text' placeholder='Digite o nome' value={nome} onChange={(e)=> setNome(e.target.value)}/>
+                        <input type='email' placeholder='Digite o email'value={email} onChange={(e)=> setEmail(e.target.value)}/>
+                        <input type='password' placeholder='Digite a senha' value={password} onChange={(e)=> setPassword(e.target.value)}/>
+                                
+                        <button type='submit'>Cadastrar</button>
+
+                    </form>
                 </section>
 
             </main>

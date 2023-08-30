@@ -10,6 +10,7 @@ import styles from './styles.module.scss';
 import { Pedido } from "@/components/Pedido";
 import { GetServerSideProps } from 'next';
 import { TableContext } from '@/contexts/Table';
+import HeaderVertical from '@/components/HeaderVertical';
 
 export default function Dashboard(){
 
@@ -31,7 +32,7 @@ export default function Dashboard(){
                 <title>Dashboard de pedidos - lanchonete Praça</title>
             </Head>
 
-            <Header/>
+            <HeaderVertical/>
             <main className={styles.main}>
                <div className={styles.container}>
                     <div className={styles.novoPeiddo}>

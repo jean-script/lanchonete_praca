@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import HeaderVertical from '@/components/HeaderVertical';
 
 const listRef = collection(db, "Categorias")
 
@@ -142,7 +143,7 @@ export default function Produtos({id, categ}:any){
                 <title>Cadastrar Produto - Lanchonete da praça</title>
             </Head>
 
-            <Header/>
+            <HeaderVertical/>
 
             <main className={styles.main}>
                 <div className={styles.container} onSubmit={handleRegisterProduto}>       
@@ -213,7 +214,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     })
     .catch((e)=>{
         console.log(e);
-        
     })
     
     return {

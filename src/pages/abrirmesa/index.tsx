@@ -11,6 +11,7 @@ import { ProductsContext } from '@/contexts/Products';
 import { TableContext } from '@/contexts/Table'
 import { Carinho } from '@/components/Carinho';
 import { AuthContext } from '@/contexts/Auth';
+import HeaderVertical from '@/components/HeaderVertical';
 
 export default function AbrirMesa(){
 
@@ -46,7 +47,7 @@ export default function AbrirMesa(){
                 <title>Abrir mesa de pedido - Lanchonete da praça</title>
             </Head>
 
-            <Header/>
+            <HeaderVertical/>
 
             <main className={styles.main} onSubmit={handleAbrirMesa}>
                 <div className={styles.container}>
