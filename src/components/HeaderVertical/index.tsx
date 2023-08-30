@@ -35,27 +35,27 @@ export default function HeaderVertical(){
                 <div>
                     <Link href='/dashboard' >
                         <AiFillHome size={20} color='#000' />
-                        Home
+                        <span>Home</span> 
                     </Link>
                     <Link href='/analytics'>
                         <FaChartPie size={20} color='#000' />
-                        Dashboard
+                        <span>Dashboard</span> 
                     </Link>
                     <Link href='/produtos'>
                         <FaPlusSquare size={20} color='#000' />
-                        Novo produto
+                        <span>Novo produto</span> 
                     </Link>
                     <Link href='/categoria'>
                         <BiCategory size={20} color='#000' />
-                        Categoria
+                        <span>Categoria</span> 
                     </Link>
                     <Link href='/createuser'>
                         <FaUserPlus size={20} color='#000' />
-                        Criar usuário
+                        <span>Criar usuário</span> 
                     </Link>     
                     <Link href='/abrirmesa' onClick={() => geraNum()}>
                         <IoMdAddCircle size={20} color="#000"/>
-                        Novo pedido
+                        <span>Novo pedido</span> 
                     </Link>     
                 </div>
 

@@ -1,5 +1,4 @@
 import { useEffect, useContext } from 'react'
-import { Header } from "@/components/Header";
 import Head from "next/head";
 import Link from "next/link";
 import { IoAdd } from 'react-icons/io5';
@@ -62,7 +61,6 @@ export default function Dashboard(){
 
 
 export const getServerSideProps: GetServerSideProps = async () => {
-
 
     return {
         props:{

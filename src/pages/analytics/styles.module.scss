@@ -84,6 +84,14 @@
     }
 }
 
+@media screen and (max-width:850px) {
+    .main {
+        width: cal(80% -70px);
+        margin-left: 70px;
+        padding: 0px 20px;
+    }
+}
+
 
 @media screen and (max-width: 530px){
     .container {

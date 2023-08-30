@@ -4,6 +4,7 @@
     width: cal(80% -200px);
     margin-left: 210px;
     padding: 30px 20px;
+    transition: all 0.3s;
 }
 
 .container {
@@ -44,5 +45,14 @@
 
             color: var(--white);
         }
+    }
+}
+
+
+@media screen and (max-width:850px) {
+    .main {
+        width: cal(80% -70px);
+        margin-left: 70px;
+        padding: 30px 20px;
     }
 }

@@ -93,9 +93,16 @@
 
 }
 
+
+
 @media screen  and (max-width: 850px) {
+    .main {
+        width: cal(80% -70px);
+        margin-left: 70px;
+        padding: 30px 20px;
+    }
     .cardProducts {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 

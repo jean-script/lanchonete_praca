@@ -10,7 +10,7 @@ import AvatarImage from '@/assets/avatar.png';
 import { IoAdd } from 'react-icons/io5';
 
 export default function Profile(){
-    const { user }:any = useContext(AuthContext);
+    const { user, Logout }:any = useContext(AuthContext);
     const [nome,setNome] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -42,6 +42,10 @@ export default function Profile(){
                         <button type='submit'>Atualizar </button>
 
                     </form>
+
+                    <button className={styles.buttonLogout} onClick={()=> Logout()}>
+                        Sair
+                    </button>
                 </section>
             </main>
         </>

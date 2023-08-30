@@ -79,3 +79,21 @@
     }
 
 }
+
+.buttonLogout {
+    margin-top: 40px;
+    max-width: 220px;
+    padding: 10px 0;
+    background-color: transparent;
+    border: 1px solid var(--gray-100);
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+@media screen  and (max-width: 850px) {
+    .main {
+        width: cal(80% -70px);
+        margin-left: 70px;
+        padding: 30px 20px;
+    }
+}
