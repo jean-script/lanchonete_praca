@@ -15,31 +15,36 @@ function PedidosProvider({children}:any){
     const { user }:any = useContext(AuthContext);
 
     async function loadPedidos(status:string){
-        setLoading(true)
-        let q;
-        if(user?.admin){
-            q = query(listRef, orderBy('created','desc'),where("status","==",status))
-        } else {
-            q = query(listRef, orderBy('created','desc'),where("status","==",status), where("userId","==",user.uid))
+        try {
+            setLoading(true)
+            let q;
+            if(user?.admin){
+                q = query(listRef, orderBy('created','desc'),where("status","==",status))
+            } else {
+                q = query(listRef, orderBy('created','desc'),where("status","==",status), where("userId","==",user.uid))
+            }
+            
+            const unsub = onSnapshot(q, (snapshot:any)=>{
+                let lista:any = [];
+                snapshot.forEach((doc:any) => {
+                    lista.push({
+                        id: doc.id,
+                        cliente:doc.data().cliente,
+                        numero: doc.data().number,
+                        status: doc.data().status,
+                        total: doc.data().total,
+                        created:doc.data().created,
+                        createdFormat: format(doc.data().created.toDate(), "dd/MM/yyyy")
+                    })
+                });
+
+                setPedidos(lista);
+                setLoading(false)
+            })
+        } catch (e) {
+            console.log(e);
         }
         
-        const unsub = onSnapshot(q, (snapshot:any)=>{
-            let lista:any = [];
-            snapshot.forEach((doc:any) => {
-                lista.push({
-                    id: doc.id,
-                    cliente:doc.data().cliente,
-                    numero: doc.data().number,
-                    status: doc.data().status,
-                    total: doc.data().total,
-                    created:doc.data().created,
-                    createdFormat: format(doc.data().created.toDate(), "dd/MM/yyyy")
-                })
-            });
-
-            setPedidos(lista);
-            setLoading(false)
-        })
         
     }
 

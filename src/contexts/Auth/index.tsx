@@ -25,11 +25,9 @@ function AuthProvider({ children }:AuthProviderProps){
 
         if(userStorge){
             setUSer(JSON.parse(userStorge))
-            setLoad(false);
             router.push('/dashboard')
         } 
         else {
-            setLoad(false);
             router.push('/')
         }
         setLoad(false);
