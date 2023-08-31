@@ -9,7 +9,7 @@ import { Pedido } from "@/components/Pedido";
 
 import formatCurrency from '@/ultis/formatCurrecy';
 
-import { AreaChart } from '@/components/AreaChart';
+// import { AreaChart } from '@/components/AreaChart';
 
 import { format } from 'date-fns';
 import HeaderVertical from '@/components/HeaderVertical';
@@ -125,14 +125,14 @@ export default function Analytics(){
                     {pedidosSave.map((pedido:any)=> (
                         <Pedido key={pedido.id} data={pedido}/>
                     ))}
-                    <article className={styles.chartArea}>
+                    {/* <article className={styles.chartArea}>
                         <div>
                             <AreaChart/>
                         </div>
                         <div>
                             <AreaChart/>
                         </div>
-                    </article>
+                    </article> */}
                     
                 </div>
             </main>
