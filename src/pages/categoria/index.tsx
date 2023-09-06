@@ -31,8 +31,6 @@ export default function Categoria(){
                 <title>Registrar categoria - Lanchonete da praça</title>
             </Head>
 
-            <HeaderVertical/>
-
             <main className={styles.main}>
                 <div className={styles.container} onSubmit={handleCreateCategoria}>
                     <h1>Nova Categoria</h1>

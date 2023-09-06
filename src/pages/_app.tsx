@@ -8,6 +8,8 @@ import PedidosProvider from '@/contexts/Pedidos';
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import HeaderVertical from '@/components/HeaderVertical';
+import { useRouter } from 'next/router';
 
 /* AuthProvider para autenticação e usuario  */
 
@@ -20,6 +22,8 @@ import 'react-toastify/dist/ReactToastify.css';
 /* TableProvider para criação da mesa e fechamento  */
 
 export default function App({ Component, pageProps }: AppProps) {
+
+  const route = useRouter();
   return (
   <>
     
@@ -28,6 +32,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <ProductsProvider>
         <PedidosProvider>
           <TableProvider>
+            {route.pathname !== '/' &&(
+              <HeaderVertical/>
+            )}
             <Component {...pageProps} />
           </TableProvider>
         </PedidosProvider>

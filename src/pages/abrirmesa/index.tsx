@@ -46,8 +46,6 @@ export default function AbrirMesa(){
                 <title>Abrir mesa de pedido - Lanchonete da praça</title>
             </Head>
 
-            <HeaderVertical/>
-
             <main className={styles.main} onSubmit={handleAbrirMesa}>
                 <div className={styles.container}>
 

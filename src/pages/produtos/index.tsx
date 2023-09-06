@@ -119,8 +119,6 @@ export default function Produtos(){
                 <title>Cadastrar Produto - Lanchonete da praça</title>
             </Head>
 
-            <HeaderVertical/>
-
             <main className={styles.main}>
                 <div className={styles.container} onSubmit={handleRegisterProduto}>       
                     <h1>Novo Produto</h1>

@@ -31,7 +31,6 @@ export default function Dashboard(){
                 <title>Dashboard de pedidos - lanchonete Praça</title>
             </Head>
 
-            <HeaderVertical/>
             <main className={styles.main}>
                <div className={styles.container}>
                     <div className={styles.novoPeiddo}>

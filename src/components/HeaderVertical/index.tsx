@@ -47,42 +47,42 @@ export default function HeaderVertical(){
                         onClick={(e)=> handleChangeColorMenuItem('Home') } 
                         className={ categoriaSelected === 'Home' ? styles.activeMenu : '' } 
                     >
-                        <AiFillHome size={20} color='#000' />
+                        <AiFillHome size={20} color={ categoriaSelected === 'Home' ? '#5e5a5a' : '#000'} />
                         <span>Home</span> 
                     </Link>
                     <Link href='/analytics'
                         onClick={(e)=> handleChangeColorMenuItem('Dashboard') } 
                         className={ categoriaSelected === 'Dashboard' ? styles.activeMenu : '' } 
                     >
-                        <FaChartPie size={20} color='#000' />
+                        <FaChartPie size={20} color={ categoriaSelected === 'Dashboard' ? '#5e5a5a' : '#000'} />
                         <span>Dashboard</span> 
                     </Link>
                     <Link href='/produtos'
                         onClick={(e)=> handleChangeColorMenuItem('produtos') } 
                         className={ categoriaSelected === 'produtos' ? styles.activeMenu : '' } 
                     >
-                        <FaPlusSquare size={20} color='#000' />
+                        <FaPlusSquare size={20} color={ categoriaSelected === 'Dashboard' ? '#5e5a5a' : '#000'} />
                         <span>Novo produto</span> 
                     </Link>
                     <Link href='/categoria'
                         onClick={(e)=> handleChangeColorMenuItem('categoria') } 
                         className={ categoriaSelected === 'categoria' ? styles.activeMenu : '' } 
                     >
-                        <BiCategory size={20} color='#000' />
+                        <BiCategory size={20} color={ categoriaSelected === 'categoria' ? '#5e5a5a' : '#000'} />
                         <span>Categoria</span> 
                     </Link>
                     <Link href='/createuser'
                         onClick={(e)=> handleChangeColorMenuItem('createuser') } 
                         className={ categoriaSelected === 'createuser' ? styles.activeMenu : '' } 
                     >
-                        <FaUserPlus size={20} color='#000' />
+                        <FaUserPlus size={20} color={ categoriaSelected === 'createuser' ? '#5e5a5a' : '#000'} />
                         <span>Criar usuário</span> 
                     </Link>     
                     <Link href='/abrirmesa'
                         onClick={(e)=> handleChangeCorAndGeraNum('abrirmesa') } 
                         className={ categoriaSelected === 'abrirmesa' ? styles.activeMenu : '' } 
                     >
-                        <IoMdAddCircle size={20} color="#000"/>
+                        <IoMdAddCircle size={20} color={ categoriaSelected === 'abrirmesa' ? '#5e5a5a' : '#000'}/>
                         <span>Novo pedido</span> 
                     </Link>     
                 </div>

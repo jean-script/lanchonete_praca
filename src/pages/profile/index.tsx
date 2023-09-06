@@ -82,7 +82,9 @@ export default function Profile(){
             <Head>
                 <title>Profile - {user?.nome}</title>
             </Head>
-            <HeaderVertical/>
+
+        
+
             <main className={styles.main} onSubmit={handleUpdateProfile}>
                 <section className={styles.container}>
                     <label >

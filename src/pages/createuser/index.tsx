@@ -37,8 +37,6 @@ export default function CreateUser(){
                 <title>Register Users - Lanchonete da Praça</title>
             </Head>
 
-            <HeaderVertical/>
-
             <main className={styles.main}>
                 
                 <section className={styles.container} onSubmit={handleRegisterUser}>

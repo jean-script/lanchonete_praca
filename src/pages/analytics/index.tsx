@@ -71,7 +71,6 @@ export default function Analytics(){
                 <title>Analytics de pedidos - lanchonete Praça</title>
             </Head>
 
-            <HeaderVertical/>
             <main className={styles.main}>
                <div className={styles.container}>
 
