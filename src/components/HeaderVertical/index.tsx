@@ -1,8 +1,7 @@
-import { useContext } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { AuthContext } from '@/contexts/Auth';
 
 import Link from 'next/link';
-import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 
 import { FaChartPie, FaPlusSquare, FaUserPlus } from 'react-icons/fa';
@@ -21,9 +20,19 @@ export default function HeaderVertical(){
 
     const { user }:any = useContext(AuthContext);
     const { geraNum }:any = useContext(TableContext);
+    const [categoriaSelected, setCategoriaSelected] = useState('Home')
     const route = useRouter();
 
     console.log(route.asPath);
+
+    function handleChangeColorMenuItem(tag:any) {
+        setCategoriaSelected(tag)
+    }
+
+    function handleChangeCorAndGeraNum(tag:any){
+        setCategoriaSelected(tag);
+        geraNum();
+    }
     
     return (
         <header className={styles.header}>
@@ -32,28 +41,47 @@ export default function HeaderVertical(){
                 <Link href='/dashboard'>
                     <h1>Logo</h1>
                 </Link>
-                <div>
-                    <Link href='/dashboard' >
+                <div >
+                    <Link 
+                        href='/dashboard' 
+                        onClick={(e)=> handleChangeColorMenuItem('Home') } 
+                        className={ categoriaSelected === 'Home' ? styles.activeMenu : '' } 
+                    >
                         <AiFillHome size={20} color='#000' />
                         <span>Home</span> 
                     </Link>
-                    <Link href='/analytics'>
+                    <Link href='/analytics'
+                        onClick={(e)=> handleChangeColorMenuItem('Dashboard') } 
+                        className={ categoriaSelected === 'Dashboard' ? styles.activeMenu : '' } 
+                    >
                         <FaChartPie size={20} color='#000' />
                         <span>Dashboard</span> 
                     </Link>
-                    <Link href='/produtos'>
+                    <Link href='/produtos'
+                        onClick={(e)=> handleChangeColorMenuItem('produtos') } 
+                        className={ categoriaSelected === 'produtos' ? styles.activeMenu : '' } 
+                    >
                         <FaPlusSquare size={20} color='#000' />
                         <span>Novo produto</span> 
                     </Link>
-                    <Link href='/categoria'>
+                    <Link href='/categoria'
+                        onClick={(e)=> handleChangeColorMenuItem('categoria') } 
+                        className={ categoriaSelected === 'categoria' ? styles.activeMenu : '' } 
+                    >
                         <BiCategory size={20} color='#000' />
                         <span>Categoria</span> 
                     </Link>
-                    <Link href='/createuser'>
+                    <Link href='/createuser'
+                        onClick={(e)=> handleChangeColorMenuItem('createuser') } 
+                        className={ categoriaSelected === 'createuser' ? styles.activeMenu : '' } 
+                    >
                         <FaUserPlus size={20} color='#000' />
                         <span>Criar usuário</span> 
                     </Link>     
-                    <Link href='/abrirmesa' onClick={() => geraNum()}>
+                    <Link href='/abrirmesa'
+                        onClick={(e)=> handleChangeCorAndGeraNum('abrirmesa') } 
+                        className={ categoriaSelected === 'abrirmesa' ? styles.activeMenu : '' } 
+                    >
                         <IoMdAddCircle size={20} color="#000"/>
                         <span>Novo pedido</span> 
                     </Link>     

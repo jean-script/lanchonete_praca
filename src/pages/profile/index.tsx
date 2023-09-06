@@ -18,7 +18,7 @@ export default function Profile(){
     const [nome,setNome] = useState(user?.nome || '');
     const [email, setEmail] = useState(user?.email || '');
     const [imageAvatar, setImageAvatar]:any = useState(null);
-    const [avatarUrl, setAvatarUrl]:any = useState(null);
+    const [avatarUrl, setAvatarUrl]:any = useState(user?.avatarUrl || null);
 
     console.log(user);
     
@@ -87,25 +87,11 @@ export default function Profile(){
                 <section className={styles.container}>
                     <label >
                         <input type="file" accept="image/*" onChange={handleFile} />
-                        {user.avatarUrl ? (
-                            <Image 
-                            src={user.avatarUrl}
-                            width={250}
-                            height={250}
-                            alt='Foto perfil'
-                        />
-                        ) : (
-                            avatarUrl === null ?(
-                                <Image 
-                                    src={AvatarImage}
-                                    alt='Foto perfil'
-                                />
-                            ): (
-                                <img src={avatarUrl} alt="foto de perfil" width={250} height={250} />
-                            )
+                        { avatarUrl === null ?(
+                                <></>
+                            ) : (
+                            <img src={avatarUrl} alt="foto de perfil" width={250} height={250} />
                         )}
-                        
-
                         <IoAdd size={35} color="#fff"/>
                     </label>
 
