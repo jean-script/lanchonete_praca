@@ -77,9 +77,9 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-
-    
-    
+        flex: 1;
+        
+        
         div {
             width: 100%;
             max-width: 60px;
@@ -175,6 +175,26 @@
     .cardProduct {
         &:hover p {
             max-width: 196px;
+        }
+    }
+}
+
+@media screen  and (max-width: 420px) {
+    .cardProduct {
+        min-height: 100px;
+        flex-direction: row;
+
+
+        &:hover p {
+            min-height: 100px;
+            max-width: 230px;
+            width: 100%;
+        }
+
+        img {
+            max-width: 100px;
+            
+            max-height: 100px;
         }
     }
 }

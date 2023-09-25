@@ -47,6 +47,31 @@
 
 }
 
+.linkProfileActive {
+    display: flex;
+    color: #000;
+    align-items: center;
+    gap: 8px;
+    border-radius: 5px;
+    border: 1px solid rgb(185, 185, 185);
+    background-color: #eeeeee;
+    padding: 5px;
+
+    img {
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    div {
+        gap: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        font-size: 16px;
+    }
+}
+
 .linkProfile {
     display: flex;
     color: #000;
@@ -79,6 +104,9 @@
     }
 
     .nav {
+
+        
+
         a {
             justify-content: center;
         }

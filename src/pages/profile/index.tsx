@@ -97,7 +97,7 @@ export default function Profile(){
                         <IoAdd size={35} color="#fff"/>
                     </label>
 
-                    <form className={styles.forms} >
+                    <form className={styles.forms}>
                         <input 
                             type='text' 
                             placeholder='Digite o nome' 

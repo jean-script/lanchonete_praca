@@ -87,7 +87,11 @@ export default function HeaderVertical(){
                     </Link>     
                 </div>
 
-                <Link href='/profile' className={styles.linkProfile}>
+                <Link 
+                    href='/profile' 
+                    onClick={(e)=> handleChangeCorAndGeraNum('perfil') } 
+                    className={ categoriaSelected === 'perfil' ? styles.linkProfileActive : styles.linkProfile  }
+                >
                     
                     <Image
                         alt='Foto de perfil'  
